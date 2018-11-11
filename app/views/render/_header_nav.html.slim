@@ -1,0 +1,26 @@
+#nav-container
+  .text-contrast#nav-container
+    .nav
+      ul.strong.text-center
+        li.nav-btn
+          = link_to static_pages_path
+            i.fa.fa-info
+        li.nav-btn
+          = link_to recommends_path
+            i.fa.fa-comments-o
+        li.nav-btn
+          = link_to excharts_path
+            = image_tag "icons/rador-chart.png", class: "col-10 col-center"
+        li.nav-btn
+          = link_to languages_path
+            i.fa.fa-file-text-o
+        li.nav-btn
+          = link_to projects_path
+            i.fa.fa-list-ul
+  .text-contrast.nav-btn#nav-open-btn
+    .text-center
+      i.fa.fa-bars
+  .text-contrast.nav-btn#nav-close-btn
+    .text-center
+      i.fa.fa-times
+    

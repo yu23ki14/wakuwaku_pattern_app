@@ -1,0 +1,29 @@
+body.registrations.new, body.sessions.new, body.registrations.edit, body.registrations.create, body.registrations.update, body.passwords
+  input
+    border-top: none
+    border-left: none
+    border-right: none
+    border-bottom: 1px black solid
+    border-radius: 0px
+    font-size: 18px
+    &[type="submit"]
+      border-bottom: 0px
+      font-size: 18px
+    &[type="checkbox"]
+      border: 1px solid $brand-gray
+      border-radius: 2px
+
+body.registrations.edit, body.registrations.update, body.passwords
+  .password-container
+    display: none
+    &.open
+      display: block
+  .js-user-update
+    &[disabled="disabled"]
+      background-color: $brand-light-gray
+      color: $brand-very-light-gray
+  #error_explanation
+    h2
+      display: none
+    li
+      color: $brand-theme

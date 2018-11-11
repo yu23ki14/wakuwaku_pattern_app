@@ -1,0 +1,16 @@
+#pattern_detail.modal
+  .modal-container.col-11.col-center.p-y-30
+    .close-modal
+      i.fa.fa-times
+    .col-10.col-center.row-space-top-1
+      h4.text-center.row-space-4 #{@pattern.pattern_name}
+      h5.row-space-2 problem
+      p #{@pattern.b_problem}
+      br
+      h5.row-space-2 solution
+      p #{@pattern.b_solution}
+      
+      p.text-right.row-space-top-4
+        =link_to "/patterns/#{@pattern.language_id}/#{@pattern.pattern_no}", class: "js-link-to-pattern bottom-bordered"
+          |more 
+          i.fa.fa-plus

@@ -1,0 +1,39 @@
+.patterns
+  input[type="checkbox"]
+    display: none
+    &:checked + label
+      color: $pastel-red
+  .pattern_img
+    position: absolute
+    top: 0
+    right: 25px
+  #text-area
+    margin-top: 150px
+  .border-lp
+    border-bottom: $lp-color solid 2px
+    height: 1px
+  .border-pdp
+    border-bottom: $pdp-color solid 2px
+    height: 1px
+  .border-cp
+    border-bottom: $cp-color solid 2px
+    height: 1px
+  .border-pp
+    border-bottom: $pp-color solid 2px
+    height: 1px
+  .summary
+    -webkit-line-clamp: 2
+    -webkit-box-orient: vertical
+    overflow: hidden
+    display: block
+    display: -webkit-box
+    
+.patterns.show
+  .lg-title
+    position: fixed
+    top: 0
+    width: 100%
+    z-index: 1
+  .page-container
+    margin-top: 70px
+  

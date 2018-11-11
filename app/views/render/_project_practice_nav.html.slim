@@ -1,0 +1,19 @@
+.practice-nav.row-space-3
+  p.p-l-10.p-y-5.bg-theme{style="background-color: #{project_color}"}
+    = link_to projects_path, class: "text-contrast"
+      | < #{project_name}
+  ul.row.text-center.p-t-10
+    = link_to project_path, remote: true
+      li.col-4#active-list.active
+        h6.m-y-0.normal
+          |#{t('practice_list')}
+    
+    = link_to "#{params[:id]}/complete", remote: true
+      li.col-4#complete-list
+        h6.m-y-0.normal
+          |#{t('ended_list')}
+    
+    = link_to "#{params[:id]}/archive", remote: true
+      li.col-4#archive-list
+        h6.m-y-0.normal
+          |#{t('archive')}

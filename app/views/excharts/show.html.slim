@@ -1,0 +1,61 @@
+.title.p-t-10.p-b-15.p-x-10{class="bg-#{@language.lg_code}" path_id="#{@exchart.id}"}
+  p.normal.small.p-l-5.p-b-5
+    | #{@exchart.created_at.strftime("%Y/%m/%d")}
+  h4.m-t-0.m-b-0
+    |#{@language.lg_name} 
+    
+.row-space-3.row-space-top-3.m-x-5
+  canvas#myChart[height="230"]
+
+.row-space-top-5
+  ul.result-nav.row.text-center
+    li.js-trigger-switch-proximal.col-6.p-t-0
+      .nav-inner
+      p.small #{t('want_to_practice_pattern')}
+    li.js-trigger-switch-current.col-6.p-t-0.in-active
+      .nav-inner
+      p.small #{t('practicing_pattern')}
+.page-container.row-space-top-2
+  
+  .proximal-patterns-container
+    - @proximalpatterns.each do |cp|
+      .card.col-12.col-center.p-x-20.p-y-10.row-space-2.required-container.pri-1-color
+        p.small
+          |##{cp.pattern_no}
+        h3.m-t-5.required-container.row-space-1
+          |#{cp.pattern_name}
+        p.p-b-10.row-space-1.bottom-bordered
+          | #{cp.summary}
+        
+        .text-right
+          .text-contrast.h3.inline.m-r-10.js-trigger-add-practice{language_id = "#{cp.language_id}", pattern_no = "#{cp.pattern_no}"}
+            i.fa.fa-list-ul
+          .text-contrast.h3.inline.m-l-10.js-trigger-pattern-detail{language_id = "#{cp.language_id}", pattern_no = "#{cp.pattern_no}"}
+            i.fa.fa-file-text-o
+  
+  .current-patterns-container
+    - @currentpatterns.each do |cp|
+      .card.col-12.col-center.p-x-20.p-y-10.row-space-2.required-container.pri-2-color
+        p.small
+          |##{cp.pattern_no}
+        h3.m-t-5.required-container.row-space-1
+          |#{cp.pattern_name}
+        p.p-b-10.row-space-1.bottom-bordered
+          | #{cp.summary}
+        
+        .text-right
+          .text-contrast.h3.inline.m-r-10.js-trigger-add-practice{language_id = "#{cp.language_id}", pattern_no = "#{cp.pattern_no}"}
+            i.fa.fa-list-ul
+          .text-contrast.h3.inline.m-l-10.js-trigger-pattern-detail{language_id = "#{cp.language_id}", pattern_no = "#{cp.pattern_no}"}
+            i.fa.fa-file-text-o
+.page-container.text-right
+  = form_tag ("/excharts/" + "#{@exchart.id}" + "/pdf?format=pdf") do
+    = hidden_field :chart, :image, class: "chart-image"
+    = submit_tag "#{t('show_pdf')}", class: "button button-primary row-space-2"
+  = form_tag ("/excharts/" + "#{@exchart.id}" + "/send_pdf?format=pdf") do
+    = hidden_field :chart, :image, class: "chart-image"
+    = submit_tag "#{t('get_pdf')}", class: "button button-primary"
+
+= render "pattern_list"
+= render partial: "add_practice", locals: {path: @path}
+#pattern-detail-container
