@@ -1,0 +1,60 @@
+.side-menu-wrapper-dammy
+  width: 250px
+  @media (max-width: 1200px)
+    width: 180px
+  @media (max-width: 767px)
+    width: 0
+  
+.side-menu-wrapper
+  height: 100vh
+  width: 250px
+  position: fixed
+  z-index: 3
+  transition: left .3s
+  @media (max-width: 1200px)
+    width: 180px
+  @media (max-width: 767px)
+    left: -250px
+    .menu-opened &
+      left: 0
+  li
+    position: relative
+  .side-menu-inner
+    padding-right: 5px
+    &:hover
+      background-color: #00344a
+    &.is-active
+      font-weight: 900
+      background-color: $red
+  a
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    text-indent: 200%
+    white-space: nowrap
+    overflow: hidden
+  .side-menu-sub-list
+    li
+      font-size: 14px
+
+.side-menu-hum
+  display: none
+  position: fixed
+  top: 7px
+  right: 15px
+  font-size: 25px
+  z-index: 3
+  @media (max-width: 767px)
+    display: block  
+  .menu-opened &
+    top: 12px
+      
+  .fa-times
+    display: none
+    .menu-opened &
+      display: block
+  .fa-bars
+    .menu-opened &
+      display: none

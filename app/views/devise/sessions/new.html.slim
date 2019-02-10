@@ -1,12 +1,12 @@
-.page-container
-  .col-11.col-center
-    h2.row-space-top-4 Log in
+.page-container.flex-container.flex-center
+  .col-4.col-sm-11
+    h2.row-space-top-4 ログイン
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       .field.row-space-top-5
-        = f.email_field :email, autofocus: true, class: "col-12 col-center", placeholder: "Email Address"
+        = f.email_field :email, autofocus: true, class: "col-12 col-center", placeholder: "メールアドレス"
     
       .field.row-space-top-5
-        = f.password_field :password, autocomplete: "off", class: "col-12 col-center", placeholder: "Password"
+        = f.password_field :password, autocomplete: "off", class: "col-12 col-center", placeholder: "パスワード"
     
       //- if devise_mapping.rememberable?
         .field.row-space-top-5
@@ -14,6 +14,6 @@
           = f.check_box :remember_me
     
       .actions.text-center.row-space-top-5
-        = f.submit "Log in", class: "button button-primary button-lg"
+        = f.submit "ログイン", class: "button button-primary button-lg"
     
       = render "devise/shared/links"

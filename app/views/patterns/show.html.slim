@@ -1,16 +1,37 @@
-h4.p-l-5.p-y-20.m-t-0.m-b-0.lg-title(class = "bg-#{@language.lg_code}")
-  .p-l-10
-    | #{@language.lg_name}
-.page-container
-  - @patterns.each do |p|
-    = link_to "/patterns/#{p.language_id}/#{p.pattern_no}", class: "read-pattern",  lg: "#{p[:lg_code]}", no: "#{p[:pattern_no]}"
-      .col-6
-        .card1
-          div(id="content_#{p[:pattern_no]}")
-            .pattern-title-container.h6.small.strong.p-t-20.p-x-10.text-center #{p.pattern_name}
-            .col-8.col-center.required-container
-              - if user_signed_in?
-                - if @favorites.find_by(pattern_no: p.pattern_no) != nil
-                  i.fa.fa-heart.fav-icon-sm.card
-              = image_tag "pattern_img/#{@language.lg_code}/#{p.pattern_no}.png", class: "col-12 col-center"
-            p.small.p-x-15.text-center.summary #{p.summary}
+h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav パターン
+.page-container.row-space-4
+  .flex-container.flex-a-start.flex-center
+    //.pattern-side-menu
+      - @patterns.each do |pattern|
+        = link_to pattern
+          p.row-space-3[class="#{'strong text-primary' if (pattern.pattern_no == @pattern.pattern_no)}"] No#{pattern.pattern_no}. #{pattern.pattern_name}
+            
+    .pattern-container.col-8.col-md-10.col-sm-12.row-space-top-3
+      h2.text-center.m-t-0.m-b-0 #{@pattern.pattern_name}
+      .flex-container.flex-center
+        .col-3
+          = image_tag "pattern_img/#{@pattern.pattern_no}.png", class: "col-12"
+      p.m-t-0 #{@pattern.context}
+      p.strong.text-center.p-y-20 ▼ そのとき
+      p.row-space-1.strong.text-justify #{@pattern.b_problem}
+      p.text-justify #{html_escape(@pattern.problem).gsub(/\r\n|\r|\\n/, "<br />").html_safe}
+      p.strong.text-center.p-y-20 ▼ そこで
+      p.row-space-1.strong.text-justify #{@pattern.b_solution}
+      p.text-justify #{@pattern.solution}
+      p.strong.text-center.p-y-20 ▼ そうすると
+      p.text-justify #{@pattern.consequence}
+    
+      .flex-container
+        hr.row-space-4.row-space-top-8.col-8
+      
+  h4.text-center.row-space-2.row-space-top-8
+    | 紐づくタイニーパターン
+    
+  .flex-container.flex-a-start
+    - @tiny_patterns.each do |pattern|
+      = link_to pattern, class: "col-4 col-md-6 col-sm-12 row-space-2"
+        .pattern-card.box-shadow-primary.p-x-20.p-y-20
+          h4.m-t-0.text-center #{pattern.pattern_name}
+          .text-center
+            = image_tag "pattern_img/#{pattern.pattern_no}.png", class: "col-7"
+          p #{pattern.summary}

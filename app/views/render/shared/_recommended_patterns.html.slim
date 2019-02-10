@@ -1,0 +1,12 @@
+.recommended-patterns-container
+  h3.m-t-0.p-l-5
+    |実践するとよいパターン
+  .recommended-patterns
+    -recommended_patterns.each_with_index do |pattern, i|
+      = link_to pattern
+        .flex-container.p-y-20.link-box
+          div.p-r-20.p-l-5
+            h4.m-b-0.m-t-0 #{pattern.pattern_name}
+            p #{pattern.b_solution}
+          i.fa.fa-chevron-right.p-r-5
+        hr.m-y-0{class="#{'hide' if (i > 1)}"}

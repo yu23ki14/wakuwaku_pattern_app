@@ -3,12 +3,13 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :set_user
+  before_action :set_category
+  before_action :set_excharts
   before_action :backhome
-  before_action :set_locale
   before_action :configure_permitted_parameters, if: :devise_controller?
   
   def after_sign_in_path_for(resource)
-    practices_path
+    patterns_path
   end
   
   private
@@ -27,19 +28,13 @@ class ApplicationController < ActionController::Base
       end
     end
     
-    def set_locale
-      if user_signed_in?
-        I18n.locale = @user.locale
-        gon.locale = I18n.locale
-      end
+    def set_category
+      @category = Category.all
     end
     
-  private
-    def set_subdomain
-      if Rails.env.production?
-        @subdomain = ActionDispatch::Http::URL.extract_subdomains(request.host, 0).first
-      else
-        @subdomain = ActionDispatch::Http::URL.extract_subdomains(request.subdomain, 0).first
+    def set_excharts
+      if user_signed_in?
+        @latest_excharts = @user.excharts.last(5)
       end
     end
 

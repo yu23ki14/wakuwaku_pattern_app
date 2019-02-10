@@ -1,39 +1,22 @@
-h1 Listing patterns
+h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav パターン
 
-table
-  thead
-    tr
-      th Lg code
-      th Cat code
-      th Pattern no
-      th Pattern name
-      th Summary
-      th Context
-      th B problem
-      th Problem
-      th B solution
-      th Solution
-      th Consequence
-      th
-      th
-      th
-
-  tbody
-    - @patterns.each do |pattern|
-      tr
-        td = pattern.lg_code
-        td = pattern.cat_code
-        td = pattern.pattern_no
-        td = pattern.pattern_name
-        td = pattern.summary
-        td = pattern.context
-        td = pattern.b_problem
-        td = pattern.problem
-        td = pattern.b_solution
-        td = pattern.solution
-        td = pattern.consequence
-        td = link_to 'Show', pattern
-        td = link_to 'Edit', edit_pattern_path(pattern)
-        td = link_to 'Destroy', pattern, data: { confirm: 'Are you sure?' }, method: :delete
-
-br
+.page-container
+  - @categories.each_with_index do |category, i|
+    h2[id="#{"category-" + i.to_s}"]
+      span.bottom-bordered.thick #{category.short_name}
+    - groups = category.pattern_groups
+    - groups.each_with_index do |group, i|
+      .pattern_group[class="#{i == 0 ? "row-space-top-4" : ""}"]
+        h3.row-space-top-5
+          span.bottom-bordered
+            |#{group.name}
+        .flex-container.flex-wrap.flex-space.flex-a-start
+          - patterns = group.patterns
+          - patterns.each do |pattern|
+            = link_to pattern, class: "col-4 col-md-6 col-sm-12 row-space-2"
+              .pattern-card.box-shadow-primary.p-x-20.p-y-20
+                h4.m-t-0.text-center #{pattern.pattern_name}
+                p.text-center #{pattern.summary}
+                .text-center
+                  = image_tag "pattern_img/#{pattern.pattern_no}.png", class: "col-7"
+                p #{pattern.b_solution}

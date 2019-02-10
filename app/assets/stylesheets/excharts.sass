@@ -1,87 +1,72 @@
-body.excharts.index
+body.excharts.index, body.excharts.compare
   .modal
     .menu
       height: 400px
       overflow: auto
+  .card
+    border-radius: 5px
+    background: $brand-contrast
+    overflow: hidden
+    position: relative
+  .selected
+    .card
+      &:after
+        content: " "
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background-color: rgba($brand-gray, .4)
 body.excharts.new
-  overflow: hidden
-  min-width: 100%
-  max-width: 100%
-  #nav-container
-    display: none
-  .required-container
-    width: 100%
   .card
     background: white
     border-radius: 10px
     border: 1px solid rgba(0,0,0,.1)
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    transition: all 0.5s
     min-height: 390px
-    .name
-      height: 44px
-      overflow: auto
-    .summary
-      height: 72px
-      overflow: auto
-    .solution
-      height: 96px
-      overflow: auto
-    &:first-of-type
-      box-shadow: 0px 0px 6px 1px rgba(0,0,0,.3)
   input[type="submit"]
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    bottom: 0
-    margin: auto
-    height: 35px
-    width: 40%
     z-index: 1
-    display: none
+  .progressbar-container
+    position: fixed
+    top: 0
+    width: 100%
+    z-index: 1
+    background: $brand-contrast
   .progressbar-outline
     height: 20px
     border-radius: 10px
     box-sizing: content-box
     padding: 0
+    position: relative
+    overflow: hidden
     .bar
       background-color: $brand-theme
       height: 20px
       position: absolute
       top: 0
       left: 0
-      border-radius: 10px
-      min-width: 24px
-  .flick-button
-    width: 50px
-    height: 50px
-    border-radius: 25px
-    cursor: pointer
-    &.reverse
-      width: 35px
-      height: 35px
-      margin-top: 12px
-
-body.en.excharts.new
-  p
-    @media (max-width: 375px)
-      font-size: 14px !important
+      width: 0
+      -webkit-transition: .5s ease-in-out
+  .exchart-controller
+    .h3
+      background-color: rgba($blue, .3)
+      cursor: pointer
+      &:hover, &.active
+        background-color: $blue
+        color: $brand-contrast
 
 body.excharts.show, body.excharts.compare_result
+  .result-nav-container
+    z-index: 1
   .result-nav
     margin-top: -20px
-    border-bottom: 1px solid #D9D9D9
+    height: 70px
     li
       height: 70px
       overflow: hidden
       perspective: 500px
       position: relative
       display: inline-block
-      margin-top: -14px
       z-index: 5
       cursor: pointer
       &.in-active
@@ -114,20 +99,23 @@ body.excharts.show, body.excharts.compare_result
       cursor: pointer
   .current-patterns-container
     display: none
-    
-body.excharts.show.en, body.excharts.compare_result.en
-  .result-nav
-    p
-      white-space: inherit
-      line-height: 17px
-      height: auto
-    
+  .text-green
+    color: $green
+  .text-light-green
+    color: rgba($green, .5)
+
 body.excharts.compare_result
   .result-nav
     .nav-inner
-      background: $yellow-2-color
-    p
-      color: $brand-dark-gray
+      background: $green
+    
+.exchart-primary-patterns 
+  .is-secondary &
+    display: none
+.exchart-secondary-patterns
+  display: none
+  .is-secondary &
+    display: block
     
 body.excharts.compare
   .js-compare-submit
@@ -148,6 +136,9 @@ body.excharts.compare
   .selected
     .selected-wrapper
       display: block
+  .button
+    background-color: $red
+    color: $brand-contrast
 
 //pdf style
 .pdf-col-3

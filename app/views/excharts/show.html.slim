@@ -1,61 +1,21 @@
-.title.p-t-10.p-b-15.p-x-10{class="bg-#{@language.lg_code}" path_id="#{@exchart.id}"}
-  p.normal.small.p-l-5.p-b-5
-    | #{@exchart.created_at.strftime("%Y/%m/%d")}
-  h4.m-t-0.m-b-0
-    |#{@language.lg_name} 
-    
-.row-space-3.row-space-top-3.m-x-5
-  canvas#myChart[height="230"]
-
-.row-space-top-5
-  ul.result-nav.row.text-center
-    li.js-trigger-switch-proximal.col-6.p-t-0
-      .nav-inner
-      p.small #{t('want_to_practice_pattern')}
-    li.js-trigger-switch-current.col-6.p-t-0.in-active
-      .nav-inner
-      p.small #{t('practicing_pattern')}
+h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav 経験チャート
 .page-container.row-space-top-2
-  
-  .proximal-patterns-container
-    - @proximalpatterns.each do |cp|
-      .card.col-12.col-center.p-x-20.p-y-10.row-space-2.required-container.pri-1-color
-        p.small
-          |##{cp.pattern_no}
-        h3.m-t-5.required-container.row-space-1
-          |#{cp.pattern_name}
-        p.p-b-10.row-space-1.bottom-bordered
-          | #{cp.summary}
+  .flex-container.flex-wrap.flex-a-start
+    .col-6.col-md-7.col-sm-12
+      h3.m-t-0 #{(@exchart.created_at).strftime("%Y年%m月%d日")}の結果
+      canvas#myChart[height="230"]
+    .col-6.col-md-10.col-sm-12
+      = render "render/shared/recommended_patterns", recommended_patterns: @recommended_patterns
+            
+  .col-6.col-sm-12.p-b-0.row-space-top-4.result-nav-container
+    ul.result-nav.row.text-center
+      li.js-trigger-switch-primary.col-6.p-t-0
+        .nav-inner
+        p 実践しているパターン
+      li.js-trigger-switch-secondary.col-6.p-t-0.in-active
+        .nav-inner
+        p 実践していないパターン
         
-        .text-right
-          .text-contrast.h3.inline.m-r-10.js-trigger-add-practice{language_id = "#{cp.language_id}", pattern_no = "#{cp.pattern_no}"}
-            i.fa.fa-list-ul
-          .text-contrast.h3.inline.m-l-10.js-trigger-pattern-detail{language_id = "#{cp.language_id}", pattern_no = "#{cp.pattern_no}"}
-            i.fa.fa-file-text-o
-  
-  .current-patterns-container
-    - @currentpatterns.each do |cp|
-      .card.col-12.col-center.p-x-20.p-y-10.row-space-2.required-container.pri-2-color
-        p.small
-          |##{cp.pattern_no}
-        h3.m-t-5.required-container.row-space-1
-          |#{cp.pattern_name}
-        p.p-b-10.row-space-1.bottom-bordered
-          | #{cp.summary}
-        
-        .text-right
-          .text-contrast.h3.inline.m-r-10.js-trigger-add-practice{language_id = "#{cp.language_id}", pattern_no = "#{cp.pattern_no}"}
-            i.fa.fa-list-ul
-          .text-contrast.h3.inline.m-l-10.js-trigger-pattern-detail{language_id = "#{cp.language_id}", pattern_no = "#{cp.pattern_no}"}
-            i.fa.fa-file-text-o
-.page-container.text-right
-  = form_tag ("/excharts/" + "#{@exchart.id}" + "/pdf?format=pdf") do
-    = hidden_field :chart, :image, class: "chart-image"
-    = submit_tag "#{t('show_pdf')}", class: "button button-primary row-space-2"
-  = form_tag ("/excharts/" + "#{@exchart.id}" + "/send_pdf?format=pdf") do
-    = hidden_field :chart, :image, class: "chart-image"
-    = submit_tag "#{t('get_pdf')}", class: "button button-primary"
+hr.m-t-0
 
-= render "pattern_list"
-= render partial: "add_practice", locals: {path: @path}
-#pattern-detail-container
+= render "patterns_list", primary_patterns: @primary_patterns, secondary_patterns: @secondary_patterns

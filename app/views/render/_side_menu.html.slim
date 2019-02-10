@@ -1,0 +1,39 @@
+.side-menu-wrapper-dammy
+.side-menu-wrapper.bg-theme.text-contrast
+  h4.m-t-0.p-l-10.p-t-10 カワベユウキ
+  ul
+    li
+      .side-menu-inner.p-y-5.p-l-10[class="#{controller.controller_name == "mypage" ? "is-active" : "" }"]
+        |ホーム
+        = link_to mypage_index_path
+          |ホーム
+    li
+      .side-menu-inner.p-y-5.p-l-10[class="#{controller.controller_name == "patterns" ? "is-active" : "" }"]
+        |パターン
+        = link_to patterns_path
+          |パターン
+      ul.side-menu-sub-list
+        - @category.each_with_index do |category, i|
+          li
+            .side-menu-inner.p-y-5.p-l-10.m-l-10[id="side-menu-category-#{i.to_s}"]
+              |#{category.short_name}
+              = link_to patterns_path(anchor: "category-#{i}")
+                |#{category.short_name}
+    li
+      .side-menu-inner.p-y-5.p-l-10[class="#{controller.controller_name == "excharts" ? "is-active" : "" }"]
+        |経験チャート
+        = link_to excharts_path
+          |経験チャート
+      - if @latest_excharts.present?
+        ul.side-menu-sub-list
+          - @latest_excharts.each do |exchart|
+            li
+              .side-menu-inner.p-y-5.p-l-10.m-l-10[class="#{controller.controller_name == "excharts" && params[:id] == exchart.id.to_s ? "is-active" : "" }"]
+                |#{(exchart.created_at).strftime("%Y年%m月%d日")}の結果
+                = link_to exchart
+                  |#{(exchart.created_at).strftime("%Y/%m/%d")}
+
+= link_to "#", class: "side-menu-hum js-side-menu-hum"
+  i.fa.fa-bars
+  i.fa.fa-times
+  

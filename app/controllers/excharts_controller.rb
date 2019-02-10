@@ -1,28 +1,27 @@
 class ExchartsController < ApplicationController
   def index
-    @results = @user.excharts.includes(:language, :event).order(created_at: "DESC")
-    @languages = Language.all
+    @results = @user.excharts.order(created_at: "DESC")
+    @results.each_with_index do |e, i|
+      eval("gon.data#{i} = e.data")
+    end
   end
   
   def show
     @exchart = Exchart.find(params[:id])
-    data1 = @exchart.data1
-    gon.data1 = data1
-    data2 = @exchart.data2
-    gon.data2 = data2
-    label = ExchartLabel.find_by(language_id: @exchart.language_id).label
-    gon.label = label
-    @language = @exchart.language
-    @patterns = Pattern.where(language_id: @exchart.language_id).order(:pattern_no)
-    gon.patterns = @patterns.order(:axis_no)
-    ##以下jsで書き直したほうがよさげ
-    current_pattern_no = JSON.parse(data1).select{|key,value| value > 0 }.keys()
-    proximal_pattern_no = JSON.parse(data2).select{|key,value| value > 0 }.keys() - current_pattern_no
-    @proximalpatterns = @patterns.where(pattern_no: proximal_pattern_no)
-    @currentpatterns = @patterns.where(pattern_no: current_pattern_no)
-    ##ここまで
-    @practice_form = Practice.new
-    @path = request.path
+    gon.data = @exchart.data
+    @patterns = Pattern.all.order(:pattern_no)
+    gon.patterns = @patterns
+    
+    base_pattern_no = []
+    @patterns.length.times do |index|
+      base_pattern_no.push(index.to_s)
+    end
+    primary_pattern_no = JSON.parse(gon.data).select{|key,value| value > 0 }.keys()
+    secondary_pattern_no = base_pattern_no - primary_pattern_no
+    @primary_patterns = @patterns.where(pattern_no: primary_pattern_no)
+    @secondary_patterns = @patterns.where(pattern_no: secondary_pattern_no)
+    
+    @recommended_patterns = @patterns.first(3)
   end
   
   def pdf
@@ -54,40 +53,18 @@ class ExchartsController < ApplicationController
   end
   
   def new
-    if params[:language_id].present? && params[:language_id] < "4"
-      @language_id = params[:language_id]
-      @exchart = Exchart.new
-      @patterns = Pattern.where(language_id: @language_id).order(pattern_no: "DESC").order(:axis_no)
-      @language = Language.find(@language_id)
-    elsif params[:event].present?
-      event_code = params[:event][:code]
-      @event = Event.find_by(event_code: event_code)
-      if !@event.present?
-        redirect_to excharts_path
-      else
-        @language_id = @event.language_id
-        @exchart = Exchart.new
-        @patterns = Pattern.where(language_id: @language_id).order(pattern_no: "DESC")
-        @language = Language.find(@language_id)
-      end
-    else
-      redirect_to excharts_path
-    end
-    
+    @exchart = Exchart.new
+    @patterns = Pattern.all
   end
   
   def create
     @exchart = Exchart.new(exchart_params)
-    patterns_no = Pattern.where(language_id: exchart_params[:language_id]).length
-    if exchart_params[:data1] != ""
-      if JSON.parse(exchart_params[:data1]).length == patterns_no
-        if @exchart.save
-          redirect_to @exchart
-        else
-          redirect_to new_exchart_path
-        end
+    patterns_no = Pattern.all.length
+    if exchart_params[:data1] != "" && JSON.parse(exchart_params[:data]).length == patterns_no
+      if @exchart.save
+        redirect_to @exchart
       else
-        redirect_to new_exchart_path, alert: "データに誤りがあります。"
+        redirect_to new_exchart_path, alert: "保存に失敗しました。"
       end
     else
       redirect_to new_exchart_path, alert: "データに誤りがあります。"
@@ -103,13 +80,9 @@ class ExchartsController < ApplicationController
   end
   
   def compare
-    @lg = params[:language_id]
-    
-    if @lg != nil
-      @language = Language.find(params[:language_id])
-      @results = @user.excharts.where(language_id: @lg).order(created_at: "DESC")
-    else
-      @languages = Language.all
+    @results = @user.excharts.order(created_at: "DESC")
+    @results.each_with_index do |e, i|
+      eval("gon.data#{i} = e.data")
     end
   end
   
@@ -126,30 +99,24 @@ class ExchartsController < ApplicationController
         @exchart_2 = temp
       end
       
-      data1 = @exchart_1.data1
-      gon.data1 = data1
-      data2 = @exchart_2.data1
+      data1 = @exchart_1.data
+      gon.data = data1
+      data2 = @exchart_2.data
       gon.data2 = data2
-      label = ExchartLabel.find_by(language_id: @exchart_1.language_id).label
-      gon.label = label
-      @language = @exchart_1.language
-      @patterns = Pattern.where(language_id: @exchart_1.language_id).order(:pattern_no)
-      gon.patterns = @patterns.order(:axis_no)
-      ##以下jsで書き直したほうがよさげ
+      @patterns = Pattern.order(:pattern_no)
+      
       prev_pattern_no = JSON.parse(data1).select{|key,value| value > 0 }.keys()
       new_pattern_no = JSON.parse(data2).select{|key,value| value > 0 }.keys()
       all_pattern_no = prev_pattern_no + new_pattern_no
-      @currentpatterns = @patterns.where(pattern_no: new_pattern_no)
-      @allpatterns = @patterns.where(pattern_no: all_pattern_no)
-      ##ここまで
-      @practice_form = Practice.new
-      @path = request.path
+      new_pattern_no = all_pattern_no - prev_pattern_no
+      @primary_patterns = @patterns.where(pattern_no: new_pattern_no)
+      @secondary_patterns = @patterns.where(pattern_no: all_pattern_no)
     end
   end
   
   private
     def exchart_params
-      params.require(:exchart).permit(:user_id, :language_id, :event_id, :data1, :data2)
+      params.require(:exchart).permit(:user_id, :data)
     end
     
     def set_chart

@@ -1,15 +1,11 @@
-.row.text-center
+.flex-container.text-center.exchart-nav.bottom-bordered
   - if action_name === "index"
-    .col-6.p-x-0.bottom-bordered.thick.base
-      = link_to excharts_path
-        |#{t('chart_list')}
-    .col-6.p-x-0
-      = link_to compare_excharts_path
-        |#{t('chart_compare')}
+    = link_to excharts_path, class: "col-6 p-x-0 bg-red"
+      |#{t('chart_list')}
+    = link_to compare_excharts_path, class: "col-6 p-x-0"
+      |#{t('chart_compare')}
   - if action_name === "compare"
-    .col-6.p-x-0
-      = link_to excharts_path
-        |#{t('chart_list')}
-    .col-6.p-x-0.bottom-bordered.thick.base
-      = link_to compare_excharts_path
-        |#{t('chart_compare')}
+    = link_to excharts_path, class: "col-6 p-x-0"
+      |#{t('chart_list')}
+    = link_to compare_excharts_path, class: "col-6 p-x-0 bg-red"
+      |#{t('chart_compare')}

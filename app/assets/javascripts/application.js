@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.turbolinks
-//= require turbolinks
 
 //lib
 //= require lib/lazyload
@@ -24,14 +22,9 @@
 //modules
 //= require common
 //= require welcome
-//= require add_class
 //= require patterns
-//= require fix_css
 //= require plugin
-//= require practices
-//= require recommends
-//= require projects
 //= require excharts
 //= require shuffles
 //= require users
-//= require learning_styles
+//= require mypage

@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   if $("body").hasClass("shuffles")
     setCardheight = ->
       element = $(".card")

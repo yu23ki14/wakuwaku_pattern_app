@@ -1,9 +1,0 @@
-.page-container
-  .col-10.col-center.row-space-top-2
-    - @project.each do |p|
-      p #{t('join_project?', project_name: p.project_name)}
-      = form_for @join_project do |j|
-        = j.hidden_field :user_id, :value => current_user.id
-        = j.hidden_field :project_id, :value => p.id
-        .text-center.row-space-top-2
-          = j.submit "#{t('join_project!')}", class: "button button-primary"

@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   if $("body").hasClass("registrations") 
     $(document).on 'keyup', '.js-current-password',->
       if $(".js-current-password").val().length > 5

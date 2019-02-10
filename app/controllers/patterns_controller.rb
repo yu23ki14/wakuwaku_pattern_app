@@ -1,31 +1,16 @@
 class PatternsController < ApplicationController
-  before_action :set_pattern, only: [:edit, :update, :destroy]
+  before_action :set_pattern, only: [:edit, :update, :destroy, :show]
   before_action :set_favorites, only: [:show, :details, :fav]
-  before_action :set_practices, only: [:details]
 
   # GET /patterns
   # GET /patterns.json
   def index
-    @patterns = Pattern.all
+    @categories = Category.includes(pattern_groups: [:patterns]).all
   end
 
   def show
-    @language = Language.find(params[:language_id])
-    @patterns = @language.patterns.order("pattern_no")
-  end
-  
-  def details
-    @language = Language.find(params[:language_id])
-    @pattern = @language.patterns.find_by(pattern_no: params[:pattern_no])
-    @path = Rails.application.routes.recognize_path(request.referer)
-    if user_signed_in?
-      @favorite = @favorites.find_by(pattern_no: params[:pattern_no])
-      @practice = @practices.where(done: nil).find_by(pattern_no: params[:pattern_no])
-      @practice_form = Practice.new
-      @project_practice_form = ProjectPractice.new
-      @projects = @user.projects
-    end
-    @related_patterns = Pattern.where(cat_code_24: @pattern[:cat_code_24]).order("RANDOM()").limit(2)
+    @patterns = Pattern.all
+    @tiny_patterns = Pattern.where(unit_no: 2)
   end
   
   def fav
@@ -48,14 +33,6 @@ class PatternsController < ApplicationController
     def set_favorites
       if user_signed_in?
         @favorites = @user.favorites
-        @favorites = @favorites.where(language_id: params[:language_id])
-      end
-    end
-    
-    def set_practices
-      if user_signed_in?
-        @practices = @user.practices
-        @practices = @practices.where(language_id: params[:language_id])
       end
     end
 end

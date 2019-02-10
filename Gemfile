@@ -19,11 +19,6 @@ gem 'slim-rails', '3.1.1'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '4.3.3'
-gem 'jquery-turbolinks', '2.1.0'
-# Use reactjs as the JavaScript library
-gem 'react-rails', '~> 2.2.0'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '5.2.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.

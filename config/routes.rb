@@ -1,57 +1,16 @@
 Rails.application.routes.draw do
   
-  ###Sub Domain
-  
-  require Rails.root.join('lib', 'subdomain.rb')
-  
-  constraints(Subdomain) do
-    namespace :presentation, path: '/' do
-      root 'welcome#index'
-    end
-  end
-  
-  
-  ###Root Domain
-  
   devise_for :users
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
+  
+  #mypages route
+  resources :mypage, only: [:index] do
+  end
+  
   #patterns route
-  resources :patterns, only: [:index] do
-    collection do
-      get ':language_id' => 'patterns#show'
-      get ':language_id/:pattern_no' => 'patterns#details'
-      post ':language_id/:pattern_no/fav' => 'patterns#fav'
-    end
-  end
-  
-  resources :practices, only: [:index, :create, :update] do
-    collection do
-      get '/complete' => 'practices#complete'
-      get '/:id/addcomment' => 'practices#addcomment'
-      get '/:language_id/:pattern_no/detail' => 'practices#patterndetail'
-      get '/:id/practice_comment' => 'practices#practice_comment'
-      get '/archive' => 'practices#archive'
-      get '/:id/edit_practice' => 'practices#edit_practice'
-      post '/:id/did' => 'practices#did'
-    end
-  end
-  
-  resources :practice_comments, only: [:create]
-  
-  #languages route
-  resources :languages, only: [:index, :show]
-  
-  #recommends route
-  resources :recommends, only: [:index, :create, :update] do
-    collection do
-      get '/:phase_1_id/gophase2' => 'recommends#phase2'
-      get '/:phase_2_id/gophase3' => 'recommends#phase3'
-      get '/:phase_3_id/gophase4' => 'recommends#phase4'
-      get '/:phase_4_id/gorecommend' => 'recommends#recommend'
-      post '/:cat_code/cat_code' => 'recommends#cat_code'
-    end
+  resources :patterns, only: [:index, :show] do
   end
   
   #static_pages route
@@ -62,43 +21,6 @@ Rails.application.routes.draw do
       get '/vision' => 'static_pages#vision'
       get '/tutorial' => 'static_pages#tutorial'
       get '/sendgrid' => 'static_pages#sendgrid'
-    end
-  end
-  
-  #categories route
-  resources :categories, only: [:index]
-  
-  #contact route
-  resources :contacts, only: [:index, :create]
-  
-  #project route
-  resources :projects, only: [:index, :create, :new, :show, :edit, :destroy, :update] do
-    collection do
-      get ':id/complete' => 'projects#complete'
-      get ':id/archive' => 'projects#archive'
-      get 'join' => 'projects#join'
-      get 'search' => 'projects#search'
-      get 'send_monday' => 'projects#send_monday'
-    end
-  end
-  
-  #project practice route
-  resources :project_practices, only: [:create, :update] do
-    collection do
-      post '/:id/did' => 'project_practices#did'
-      get '/:id/practice_comment' => 'project_practices#practice_comment'
-      get '/:id/addcomment' => 'project_practices#addcomment'
-      get '/:id/edit_practice' => 'project_practices#edit_practice'
-    end
-  end
-  
-  resources :project_practice_comments, only: [:create]
-  
-  resources :project_members, only: [:create, :destroy]
-  
-  resources :events, only: [:new, :create, :index, :show] do
-    collection do
-      get ':id/proximal' => 'events#proximal'
     end
   end
   
@@ -114,15 +36,12 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :alexa_talks, only: [:create]
-  
   resources :shuffles, only: [:index] do
     collection do
       get 'app' => 'shuffles#app'
     end
   end
   
-  resources :learning_styles
   
   root 'welcome#index'
 

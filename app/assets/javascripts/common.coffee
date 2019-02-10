@@ -1,4 +1,4 @@
-$(document).on "turbolinks:load", ->  
+$ ->  
   #modalclosescript
   $(".close-modal").click ->
     $(".modal").modal("hide")
@@ -50,3 +50,13 @@ $(document).on "turbolinks:load", ->
 
   #bodyのmin-heightをwindowのサイズに
   $("body").css("min-height", $(window).innerHeight() + "px")
+  
+  $(".alert").delay(1300).fadeOut("normal")
+  
+  #side-menuの処理
+  $(document).on 'click', '.js-side-menu-hum',->
+    $("body").toggleClass("menu-opened")
+    return false
+  
+  $(document).on 'click', '.side-menu-inner',->
+    $("body").removeClass("menu-opened")
