@@ -1,14 +1,16 @@
 h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav 経験チャート
 .page-container.row-space-top-2
-  .flex-container.flex-wrap.flex-a-start
-    .col-6.col-md-7.col-sm-12
-      h3.m-t-0 #{(@exchart.created_at).strftime("%Y年%m月%d日")}の結果
-      canvas#myChart[height="230"]
-    .col-6.col-md-10.col-sm-12
+  .flex-container.flex-a-start.exchart-chart-wrapper
+    .col-6.col-md-8.col-sm-12.exchart-chart-container
+      h3.m-t-0.row-space-5 #{(@exchart.created_at).strftime("%Y年%m月%d日")}の結果
+      .col-12.p-x-0
+        = render "render/shared/exchart_label"
+        canvas#myChart[width="230px", height="230px"]
+    .col-6.col-md-12
       = render "render/shared/recommended_patterns", recommended_patterns: @recommended_patterns
             
-  .col-6.col-sm-12.p-b-0.row-space-top-4.result-nav-container
-    ul.result-nav.row.text-center
+  .col-6.col-md-10.col-sm-12.p-b-0.row-space-top-6.index-nav-container
+    ul.index-nav.row.text-center
       li.js-trigger-switch-primary.col-6.p-t-0
         .nav-inner
         p 実践しているパターン

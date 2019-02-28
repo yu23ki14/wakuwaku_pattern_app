@@ -1,22 +1,25 @@
 .side-menu-wrapper-dammy
 .side-menu-wrapper.bg-theme.text-contrast
-  h4.m-t-0.p-l-10.p-t-10 カワベユウキ
+  h4.m-t-0.p-l-10.p-t-10
+    |#{@user.name}
+    = link_to edit_user_registration_path
+      |設定
   ul
     li
-      .side-menu-inner.p-y-5.p-l-10[class="#{controller.controller_name == "mypage" ? "is-active" : "" }"]
+      .side-menu-inner.side-menu-index.p-y-5.p-l-10[class="#{controller.controller_name == "mypage" ? "is-active" : "" }"]
         |ホーム
         = link_to mypage_index_path
           |ホーム
     li
       .side-menu-inner.p-y-5.p-l-10[class="#{controller.controller_name == "patterns" ? "is-active" : "" }"]
-        |パターン
-        = link_to patterns_path
-          |パターン
+        |ライブラリ
+        = link_to list_patterns_path
+          |ライブラリ
       ul.side-menu-sub-list
         - @category.each_with_index do |category, i|
           li
             .side-menu-inner.p-y-5.p-l-10.m-l-10[id="side-menu-category-#{i.to_s}"]
-              |#{category.short_name}
+              |#{category.category_id}. #{category.short_name}
               = link_to patterns_path(anchor: "category-#{i}")
                 |#{category.short_name}
     li
@@ -32,6 +35,14 @@
                 |#{(exchart.created_at).strftime("%Y年%m月%d日")}の結果
                 = link_to exchart
                   |#{(exchart.created_at).strftime("%Y/%m/%d")}
+    
+    li
+      .side-menu-inner.p-y-5.p-l-10[class="#{controller.controller_name == "helps" ? "is-active" : "" }"]
+        |ヘルプ
+        i.fa.fa-question-circle.p-l-5
+        
+        = link_to list_patterns_path
+          |ヘルプ
 
 = link_to "#", class: "side-menu-hum js-side-menu-hum"
   i.fa.fa-bars

@@ -54,8 +54,8 @@ gem 'dotenv-rails', '2.5.0'
 #use whenever as crond
 gem 'whenever', '0.10.0'
 
-#use alexa
-#gem 'alexa_rubykit'
+#use railsadmin as admin panel
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

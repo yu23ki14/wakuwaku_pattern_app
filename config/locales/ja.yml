@@ -134,6 +134,19 @@ ja:
   how_to_use: "使い方"
   #メール系
   patten_of_this_week: "今週意識するパターン"
+  
+  formtastic:
+    yes: 'はい'
+    no: 'いいえ'
+    create: '%{model}を作成'
+    update: '%{model}を更新'
+    submit: '%{model}を投稿'
+    cancel: '%{model}を中止'
+    reset: '%{model}を初期化'
+    required: '必須'
+  time:
+   formats:
+     long: "%Y-%m-%d %H:%M:%S"
 #コントローラ別でかくサンプル
 #  projects:
 #    index:

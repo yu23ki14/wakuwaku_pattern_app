@@ -1,11 +1,11 @@
 .flex-container.text-center.exchart-nav.bottom-bordered
   - if action_name === "index"
-    = link_to excharts_path, class: "col-6 p-x-0 bg-red"
+    = link_to excharts_path, class: "col-6 p-x-0 bg-red strong text-contrast"
       |#{t('chart_list')}
     = link_to compare_excharts_path, class: "col-6 p-x-0"
       |#{t('chart_compare')}
   - if action_name === "compare"
     = link_to excharts_path, class: "col-6 p-x-0"
       |#{t('chart_list')}
-    = link_to compare_excharts_path, class: "col-6 p-x-0 bg-red"
+    = link_to compare_excharts_path, class: "col-6 p-x-0 bg-red strong text-contrast"
       |#{t('chart_compare')}

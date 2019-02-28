@@ -1,9 +1,21 @@
 class MypageController < ApplicationController
+  
+  include Recommend
+  
   def index
-    @exchart = Exchart.find(1)
-    gon.data = @exchart.data
-    @patterns = Pattern.all.order(:pattern_no)
-    gon.patterns = @patterns
-    @recommended_patterns = @patterns.first(3)
+    if @user.excharts.present?
+      @exchart = @user.excharts.last
+      gon.data = @exchart.data
+      @recommended_patterns = three_recommended_patterns(gon.data)
+    end
+    @quotation = Quotation.find(quotation_seed)
+  end
+  
+  def quotation_seed
+    quotaions = Quotation.count
+    date = Date.today
+    seed = date.year + date.mon + date.day
+    id = Random.new(seed).rand(1..quotaions)
+    return id
   end
 end

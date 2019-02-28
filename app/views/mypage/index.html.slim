@@ -1,20 +1,31 @@
 h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav ホーム
 .page-container.row-space-top-4
   .p-y-10.p-x-15.box-shadow-primary.row-space-5.mypage-message
-    h4.m-b-5.row-space-top-1 今日の励まし
-    p 暗黙知とは、理屈や言葉には表れにくい知恵や情報のこと。仕事ができる人というのは、この暗黙知をたくさん持っている人。
+    h4.m-b-5.row-space-top-1 今日のひとこと
+    p.strong #{@quotation.content}
     hr
     p.row-space-1
       |紐づくパターン : 
-      = link_to "#", class: "underline"
-        |未来の姿
-  .flex-container.flex-wrap.flex-a-start.flex-around
-    .col-5.col-sm-12
-      h3.m-t-0
-        |一番新しいチャート 
-        span.p.small
-          |#{(@exchart.created_at).strftime("%Y年%m月%d日")}
-      canvas#myChart[height="230"]
-    
-    .col-6.col-sm-12
-      = render "render/shared/recommended_patterns", recommended_patterns: @recommended_patterns
+      = link_to @quotation.pattern, class: "underline"
+        |#{@quotation.pattern.pattern_name}
+.page-container.p-b-30
+  - if @exchart.present?
+    .flex-container.flex-a-start.exchart-chart-wrapper
+      .col-6.col-md-8.col-sm-12.exchart-chart-container
+        h3.m-t-0.p-l-5.row-space-5
+          |一番新しいチャート 
+          span.p.small
+            |#{(@exchart.created_at).strftime("%Y年%m月%d日")}
+        .col-12.p-x-0
+          = render "render/shared/exchart_label"
+          canvas#myChart[width="230px", height="230px"]
+      
+      .col-6.col-md-12
+        = render "render/shared/recommended_patterns", recommended_patterns: @recommended_patterns
+  - else
+    = link_to patterns_path
+      .col-6.col-sm-12.col-center.p-x-10.p-y-5.row-space-top-2.row-space-2.required-container.bg-theme.text-contrast
+        h4 パターンを読む
+    = link_to new_exchart_path
+      .col-6.col-sm-12.col-center.p-x-10.p-y-5.row-space-top-2.row-space-2.required-container.bg-theme.text-contrast
+        h4 チャートでパターンの実践を確認する。

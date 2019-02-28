@@ -14,10 +14,8 @@
 //= require jquery_ujs
 
 //lib
-//= require lib/lazyload
-//= require lib/hammer
-//= require lib/jquery-hammer
 //= require lib/chart
+//= require lib/modaal
 
 //modules
 //= require common
@@ -25,6 +23,5 @@
 //= require patterns
 //= require plugin
 //= require excharts
-//= require shuffles
 //= require users
 //= require mypage

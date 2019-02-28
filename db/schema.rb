@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_13_005511) do
+ActiveRecord::Schema.define(version: 2019_02_27_050859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2019_01_13_005511) do
     t.string "short_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category_id"
+    t.text "description"
   end
 
   create_table "excharts", force: :cascade do |t|
@@ -47,7 +49,8 @@ ActiveRecord::Schema.define(version: 2019_01_13_005511) do
   end
 
   create_table "patterns", force: :cascade do |t|
-    t.integer "pattern_no"
+    t.integer "pattern_index"
+    t.string "pattern_id"
     t.string "pattern_name"
     t.string "summary"
     t.text "context"
@@ -63,6 +66,24 @@ ActiveRecord::Schema.define(version: 2019_01_13_005511) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_patterns_on_category_id"
     t.index ["pattern_group_id"], name: "index_patterns_on_pattern_group_id"
+  end
+
+  create_table "quotations", force: :cascade do |t|
+    t.text "content"
+    t.bigint "pattern_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pattern_id"], name: "index_quotations_on_pattern_id"
+  end
+
+  create_table "tiny_patterns", force: :cascade do |t|
+    t.integer "pattern_no"
+    t.string "name"
+    t.string "solution"
+    t.bigint "pattern_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pattern_id"], name: "index_tiny_patterns_on_pattern_id"
   end
 
   create_table "users", force: :cascade do |t|

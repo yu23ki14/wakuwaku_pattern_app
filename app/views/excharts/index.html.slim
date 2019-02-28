@@ -4,15 +4,16 @@ h4.m-t-0.m-b-0.p-y-10.p-l-10.box-shadow-primary.header-nav 経験チャート
 .page-container.row-space-top-2
   = link_to new_exchart_path
     .col-6.col-sm-12.col-center.p-x-10.p-y-5.row-space-top-2.row-space-2.required-container.bg-gray.text-contrast
-      h4 + チャートでパターンの実践を確認する。
-  h3 過去の結果一覧
-  .flex-container.flex-wrap
-    - @results.each_with_index do |r, i|
-      = link_to r, class: "col-3 col-md-4 col-sm-12"
-        .card.box-shadow-primary
-          p.p-x-10.p-y-5 #{(r.created_at).strftime("%Y/%m/%d")}のチャート
-          canvas.myChart[id="myChart#{i}", height="230"]
-          .bg-theme.row-space-top-2
-            .text-center.p.text-contrast.p-y-10
-              |詳細を見る
-          
+      h4 + チャートをつくる
+  - if @results.present?
+    h3 過去の結果一覧
+    .flex-container.flex-wrap
+      - @results.each_with_index do |r, i|
+        = link_to r, class: "col-3 col-md-4 col-sm-12"
+          .card.box-shadow-primary
+            p.p-x-10.p-y-5 #{(r.created_at).strftime("%Y/%m/%d")}のチャート
+            canvas.myChart[id="myChart#{i}", height="230"]
+            .bg-theme.row-space-top-2
+              .text-center.p.text-contrast.p-y-10
+                |詳細を見る
+            

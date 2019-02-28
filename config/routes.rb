@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   devise_for :users
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   
   #patterns route
   resources :patterns, only: [:index, :show] do
+    collection do
+      get 'list' => 'patterns#list'
+      get 'tiny/:id' => 'patterns#tiny'
+      get 'unit/:id' => 'patterns#unit'
+    end
   end
   
   #static_pages route

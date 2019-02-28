@@ -3,17 +3,20 @@ h4.m-t-0.m-b-0.p-y-10.p-l-10.box-shadow-primary.header-nav 経験チャート
 = render "chart_nav"
 .page-container.row-space-top-2
   
+  - if @results.length > 1
+    h4 比較するチャートを２つ選んでください。
+    .flex-container.flex-wrap.row-space-top-3
+      - @results.each_with_index do |r, i|
+        = link_to "#", class: "col-3 col-md-4 col-sm-12 js-set-compare-result", chart_id: "#{r.id}", id: "card#{r.id}"
+          .card.box-shadow-primary
+            p.p-x-10.p-y-5 #{(r.created_at).strftime("%Y/%m/%d")}のチャート
+            canvas.myChart[id="myChart#{i}", height="230"]
+            .bg-theme.row-space-top-2
+              .text-center.p.text-contrast.p-y-10
+                |選択する
+    = hidden_field :compare, :chart_id_1, class: ""
+    = hidden_field :compare, :chart_id_2
+    = link_to "比較する", "#", class: "button strong button-lg js-compare-submit text-center"
   
-  p 比較する結果を２つ選んでください。
-  .flex-container.flex-wrap.row-space-top-3
-    - @results.each_with_index do |r, i|
-      = link_to "#", class: "col-3 col-md-4 col-sm-12 js-set-compare-result", chart_id: "#{r.id}", id: "card#{r.id}"
-        .card.box-shadow-primary
-          p.p-x-10.p-y-5 #{(r.created_at).strftime("%Y/%m/%d")}のチャート
-          canvas.myChart[id="myChart#{i}", height="230"]
-          .bg-theme.row-space-top-2
-            .text-center.p.text-contrast.p-y-10
-              |選択する
-  = hidden_field :compare, :chart_id_1, class: ""
-  = hidden_field :compare, :chart_id_2
-  = link_to "比較する", "#", class: "button strong button-lg js-compare-submit text-center"
+  - else
+    h4 2個以上経験チャートがあると比較できるようになります。

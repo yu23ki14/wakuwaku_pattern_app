@@ -22,6 +22,18 @@ $ ->
     contentattr = $(this).attr('href')
     $(contentattr).modal()
     return false
+  
+  $(document).on 'click', '.js-trigger-toggle-password', (e) ->
+    if $("input[type='password']").length > 0
+      $("input[type='password']").attr("type", "text").addClass("password-is-shown")
+      $(this).text("パスワードを非表示")
+    else if $(".password-is-shown").length > 0
+      $(".password-is-shown").attr("type", "password")
+      $(this).text("パスワードを表示")
+    return false
+  
+  $(document).on 'click', '.js-trigger-edit-password', (e) ->
+    $(".password-container").css("display", "block")
     
   if $("body").hasClass("recommends")
     height = $(window).height()

@@ -1,0 +1,11 @@
+#exchart-axis-pattern-modal[style="display: none"]
+  p.row-space-4
+    |実践しているパターンには
+    br.show--sp
+    |色がついています。
+  - 3.times do |i|
+    = link_to "#", class: "exchart-axis-pattern", target: "blank"
+      .box-shadow-primary.p-x-15.p-y-15[class="#{i != 2 ? 'row-space-3' : ''}"]
+        h4.m-t-0
+        p
+  

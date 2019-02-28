@@ -27,4 +27,5 @@ module ApplicationHelper
   #def page_og_image
   #  @page_image||image_url(Settings.site.meta.ogp.image_path)
   #end
+
 end

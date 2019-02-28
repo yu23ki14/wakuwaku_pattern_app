@@ -1,5 +1,5 @@
 class PatternsController < ApplicationController
-  before_action :set_pattern, only: [:edit, :update, :destroy, :show]
+  before_action :set_pattern, only: [:edit, :update, :destroy, :show, :unit]
   before_action :set_favorites, only: [:show, :details, :fav]
 
   # GET /patterns
@@ -9,8 +9,21 @@ class PatternsController < ApplicationController
   end
 
   def show
-    @patterns = Pattern.all
-    @tiny_patterns = Pattern.where(unit_no: 2)
+    @tiny_patterns = @pattern.tiny_patterns.order(id: "asc")
+  end
+  
+  def list
+    @categories = Category.all
+  end
+  
+  def tiny
+    @tiny_pattern = TinyPattern.find(params[:id])
+    render :json => @tiny_pattern
+  end
+  
+  def unit
+    @patterns = Pattern.where(unit_no: params[:id])
+    render :json => @patterns
   end
   
   def fav

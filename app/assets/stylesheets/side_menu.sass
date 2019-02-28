@@ -1,5 +1,5 @@
 .side-menu-wrapper-dammy
-  width: 250px
+  width: 220px
   @media (max-width: 1200px)
     width: 180px
   @media (max-width: 767px)
@@ -7,16 +7,19 @@
   
 .side-menu-wrapper
   height: 100vh
-  width: 250px
+  width: 220px
   position: fixed
   z-index: 3
   transition: left .3s
   @media (max-width: 1200px)
     width: 180px
   @media (max-width: 767px)
+    width: 200px
     left: -250px
     .menu-opened &
       left: 0
+  h4
+    position: relative
   li
     position: relative
   .side-menu-inner
@@ -38,6 +41,8 @@
   .side-menu-sub-list
     li
       font-size: 14px
+      .side-menu-inner.is-active
+        background-color: rgba($red, .8)
 
 .side-menu-hum
   display: none
@@ -46,6 +51,7 @@
   right: 15px
   font-size: 25px
   z-index: 3
+  color: $brand-contrast
   @media (max-width: 767px)
     display: block  
   .menu-opened &

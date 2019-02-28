@@ -1,5 +1,5 @@
 .page-container.flex-container.flex-center
-  .col-4.col-sm-11
+  .col-3.col-md-6.col-sm-11
     h2.row-space-top-4 ログイン
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       .field.row-space-top-5
@@ -7,7 +7,10 @@
     
       .field.row-space-top-5
         = f.password_field :password, autocomplete: "off", class: "col-12 col-center", placeholder: "パスワード"
-    
+      .text-right.p-t-5
+        = link_to "#", class: "p small js-trigger-toggle-password"
+          |パスワードを表示
+        
       //- if devise_mapping.rememberable?
         .field.row-space-top-5
           h5 アカウントを記憶させる。

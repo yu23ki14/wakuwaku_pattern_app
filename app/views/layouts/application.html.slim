@@ -9,18 +9,20 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
-  body(class="#{controller.controller_name} #{controller.action_name} #{I18n.locale}")
+  body(class="#{controller_name} #{action_name} #{I18n.locale}")
     - flash.each do |key, value|
       h6.m-t-0.m-b-0
         = content_tag :div, value, class: "alert alert-#{key}"
-    - if controller.controller_name != "exchartsa" && controller.action_name != "new"
+    
+    - if controller_name == "welcome" || controller_name == "registrations" && action_name == "new" || controller_name == "sessions" || controller_name == "alexa_talks" || controller_name == "passwords" || controller_name == "excharts" && action_name == "new"
+      = yield
+    - else
       .flex-container.flex-a-start
         - if user_signed_in?
           = render "render/side_menu"
         .main-container
           = yield
-    - else
-      = yield
+      
     .loading-modal
       = image_tag "spinner.png", class: "spinner"
       p.loader loading...

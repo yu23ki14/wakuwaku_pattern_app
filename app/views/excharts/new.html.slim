@@ -5,24 +5,27 @@
 .page-container.row-space-top-7
   .flex-container.flex-wrap.flex-a-start
     - @patterns.each_with_index do |p, i|
-      .col-4.col-md-6.col-sm-12[id="card#{i+1}", pattern_no="#{p.pattern_no}"]
+      .col-4.col-md-6.col-sm-12[id="card#{i+1}", pattern_index="#{p.pattern_index}"]
         .pattern-card.box-shadow-primary
           .p-x-20.p-y-20.js-chart-card-main
             h4.text-center #{p.pattern_name}
             p #{p.summary}
             .text-center
-              = image_tag "pattern_img/#{p.pattern_no}.png", class: "col-5 col-center"
+              //= image_tag "pattern_img/#{p.pattern_no}.png", class: "col-5 col-center"
+              = image_tag "pattern_img/1.png", class: "col-5 col-center"
             p #{p.b_solution}
           
           .flex-container.text-center.exchart-controller
-            .col-6.h3.p-b-10.js-exchart-controller[pattern_no = "#{p.pattern_no}", param=0]
+            .col-6.h3.p-b-10.js-exchart-controller[pattern_index = "#{p.pattern_index}", param=0]
               i.fa.fa-times
               p.small 実践していない
-            .col-6.h3.p-b-10.js-exchart-controller[pattern_no = "#{p.pattern_no}", param=1]
+            .col-6.h3.p-b-10.js-exchart-controller[pattern_index = "#{p.pattern_index}", param=1]
               i.fa.fa-circle-o
               p.small 実践している
       
   = form_for @exchart do |f|
     = f.hidden_field :user_id, value: current_user.id
     = f.hidden_field :data
-    = f.submit "#{t('see_result')}", class: "button button-primary"
+    hr.row-space-top-3.row-space-3
+    .text-center.row-space-top-3.row-space-8
+      = f.submit "#{t('see_result')}", class: "button button-primary", disabled: "disabled"

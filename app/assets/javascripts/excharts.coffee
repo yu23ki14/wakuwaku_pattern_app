@@ -1,4 +1,20 @@
 $ ->
+  exchart_clean_data = (data) ->
+    data_1 = data[2] + data[3] + data[4]
+    data_2 = data[5] + data[6] + data[7]
+    data_3 = data[8] + data[9] + data[10]
+    data_4 = data[12] + data[13] + data[14]
+    data_5 = data[15] + data[16] + data[17]
+    data_6 = data[18] + data[19] + data[20]
+    data_7 = data[22] + data[23] + data[24]
+    data_8 = data[25] + data[26] + data[27]
+    data_9 = data[28] + data[29] + data[30]
+    data_10 = data[32] + data[33] + data[34]
+    data_11 = data[35] + data[36] + data[37]
+    data_12 = data[38] + data[39] + data[40]
+    creaned_data = [data_1, data_2, data_3, data_4, data_5, data_6, data_7, data_8, data_9, data_10, data_11, data_12]
+    return creaned_data
+      
   if $("body").hasClass("excharts index") || $("body").hasClass("excharts compare")
     $(document).on 'click', '.js-trigger-modal-select-mode',->
       $("#select_mode").modal()
@@ -6,19 +22,16 @@ $ ->
     $(".myChart").each (index) ->
       data = eval 'gon.data' + index
       
-      data1_color = "rgba(243, 158, 155, 0.7)"
+      data1_color = "rgba(235, 137, 94, .85)"
       
       ctx = eval 'document.getElementById("myChart' + index + '").getContext("2d")'
       
       #データの成形
       original_data = JSON.parse(data)
-      data_length = Object.keys(original_data).length - 1
-      
-      data = [] 
-      label = ["test","test","test","test","test","test","test","test","test","test","test","test","test"]
-      for i in [1..data_length] by 3
-        d1 = original_data[i] + original_data[i+1] + original_data[i+2]
-        data.push(d1)
+      delete original_data['1']; delete original_data['11']; delete original_data['21']; delete original_data['31'];
+      data = exchart_clean_data(original_data)
+
+      label = ["test","test","test","test","test","test","test","test","test","test","test","test"]
       #チャートのオプション
       options = {scale:
                   display: true
@@ -49,21 +62,6 @@ $ ->
             borderColor: data1_color
             borderWidth: 1
           ]
-          #datasets: [ {
-          #  data: data1
-          #  pointRadius:0
-          #  pointHitRadius:20
-          #  backgroundColor: data1_color
-          #  borderColor: data1_color
-          #  borderWidth: 1
-          #},{
-          #  data: data2
-          #  pointRadius:0
-          #  pointHitRadius:20
-          #  backgroundColor: data2_color
-          #  borderColor: data2_color
-          #  borderWidth: 1
-          #} ]
         options: options)
       
       
@@ -89,9 +87,9 @@ $ ->
       $(this).siblings().removeClass("active")
       $(this).addClass("active")
       
-      pattern_no = $(this).attr("pattern_no")
+      pattern_index = $(this).attr("pattern_index")
       param = $(this).attr("param")
-      practicing_data[pattern_no] = parseInt(param, 10)
+      practicing_data[pattern_index] = parseInt(param, 10)
       
       $("#exchart_data").val(JSON.stringify(practicing_data))
       
@@ -102,8 +100,14 @@ $ ->
       
       bar_width = single_span * progress
       $(".js-trigger-bar").css("width", bar_width)
+      
+      if progress == 40
+        $("input[type='submit']").attr("disabled", false)
+      else
+        $("input[type='submit']").attr("disabled", true)
 
   if $("body").hasClass("excharts show") || $("body").hasClass("excharts compare_result") || $("body").hasClass("mypage")
+    
     if $("body").hasClass("excharts show") || $("body").hasClass("mypage")
       data1_color = "rgba(235, 137, 94, .85)"
       data2_color = "rgba(235, 137, 94, .35)"
@@ -115,14 +119,13 @@ $ ->
     ctx = document.getElementById("myChart").getContext("2d")
     
     #データの成形
+      
     original_data = JSON.parse(gon.data)
+      
     if $("body").hasClass("excharts compare_result")
       original_data2 = JSON.parse(gon.data2)
-    data_length = Object.keys(original_data).length - 1
-    
-    if $("body").hasClass("excharts compare_result")
       cleaned_data = {}
-      for i in [0..data_length] by 1
+      for i in [1..40] by 1
         if original_data2[i] == 0 && original_data[i] == 1
           cleaned_data[i] = 1
         else if original_data2[i] == 1
@@ -130,26 +133,23 @@ $ ->
         else
           cleaned_data[i] = 0
       original_data2 = cleaned_data
-    
-    data = []
-    data2 = []
-    
-    for i in [1..data_length] by 3
-      d1 = original_data[i] + original_data[i+1] + original_data[i+2]
-      data.push(d1)
-      if $("body").hasClass("excharts compare_result")
-        d2 = original_data2[i] + original_data2[i+1] + original_data2[i+2]
-        data2.push(d2)
+      delete original_data2['1']; delete original_data2['11']; delete original_data2['21']; delete original_data2['31'];
+      data2 = exchart_clean_data(original_data2)
+      console.log data2
       
+    delete original_data['1']; delete original_data['11']; delete original_data['21']; delete original_data['31'];
+    data = exchart_clean_data(original_data)
+    console.log data
+    
     #ラベル
-    label = ["test","test","test","test","test","test","test","test","test","test","test","test","test"]
+    label = ["一歩踏み出す","自分なりに\n実践を重ねる","本質を\n捉えて動く","知ってもらう","価値を伝える","幸せをもたらす","つながり始める","心が通う体験を\n共有する","ファンとともに進む","実践仲間と\n出会う","さらに磨いていく","実践コミュニティを\nともにつくる"]
     
     #チャートのオプション
     options = {scale:
                 display: true
                 pointLabels:
-                  display: true
-                  fontSize: 15
+                  display: false
+                  fontSize: 0
                 ticks:
                   stepSize: 1
                   beginAtZero: true
@@ -184,67 +184,6 @@ $ ->
         } ]
       options: options)
     
-    #ラベルクリック
-    #$('#myChart').click (e) ->
-    #  helpers = Chart.helpers
-    #  eventPosition = helpers.getRelativePosition(e, myChart.chart)
-    #  mouseX = eventPosition.x
-    #  mouseY = eventPosition.y
-    #  activePoints = []
-    #  # loop through all the labels
-    #  helpers.each myChart.scale.ticks, ((label, index) ->
-    #    i = @getValueCount() - 1
-    #    while i >= 0
-    #      # here we effectively get the bounding box for each label
-    #      pointLabelPosition = @getPointPosition(i, @getDistanceFromCenterForValue(if @options.reverse then @min else @max) + 5)
-    #      pointLabelFontSize = helpers.getValueOrDefault(@options.pointLabels.fontSize, Chart.defaults.global.defaultFontSize)
-    #      pointLabeFontStyle = helpers.getValueOrDefault(@options.pointLabels.fontStyle, Chart.defaults.global.defaultFontStyle)
-    #      pointLabeFontFamily = helpers.getValueOrDefault(@options.pointLabels.fontFamily, Chart.defaults.global.defaultFontFamily)
-    #      pointLabeFont = helpers.fontString(pointLabelFontSize, pointLabeFontStyle, pointLabeFontFamily)
-    #      ctx.font = pointLabeFont
-    #      labelsCount = @pointLabels.length
-    #      halfLabelsCount = @pointLabels.length / 2
-    #      quarterLabelsCount = halfLabelsCount / 2
-    #      upperHalf = i < quarterLabelsCount or i > labelsCount - quarterLabelsCount
-    #      exactQuarter = i == quarterLabelsCount or i == labelsCount - quarterLabelsCount
-    #      width = ctx.measureText(@pointLabels[i]).width + 20
-    #      height = pointLabelFontSize + 20
-    #      x = undefined
-    #      y = undefined
-    #      if i == 0 or i == halfLabelsCount
-    #        x = pointLabelPosition.x - (width / 2)
-    #      else if i < halfLabelsCount
-    #        x = pointLabelPosition.x
-    #      else
-    #        x = pointLabelPosition.x - width
-    #      if exactQuarter
-    #        y = pointLabelPosition.y - (height / 2)
-    #      else if upperHalf
-    #        y = pointLabelPosition.y - height
-    #      else
-    #        y = pointLabelPosition.y
-    #      # check if the click was within the bounding box
-    #      if mouseY >= y and mouseY <= y + height and mouseX >= x and mouseX <= x + width
-    #        activePoints.push
-    #          index: i
-    #          label: @pointLabels[i]
-    #      i--
-    #    return
-    #  ), myChart.scale
-    #  firstPoint = activePoints[0]
-    #  if firstPoint != undefined
-    #    $("#pattern_list").modal()
-    #    $(".js-place-pattern-list").empty()
-    #    if gon.locale == "ja"
-    #      for i in [1..3]
-    #        pattern = patterns[(firstPoint.index * 3) + i]
-    #        $(".js-place-pattern-list").append('<a href="/patterns/' + pattern.language_id + '/' + pattern.pattern_no + '?path_id=' + path_id + '"><p class="row-space-2">・' + pattern.pattern_name_ja + '</p></a>')
-    #    else
-    #      for i in [1..3]
-    #        pattern = patterns[(firstPoint.index * 3) + i]
-    #        $(".js-place-pattern-list").append('<a href="/patterns/' + pattern.language_id + '/' + pattern.pattern_no + '?path_id=' + path_id + '"><p class="row-space-2">・' + pattern.pattern_name_en + '</p></a>')
-    #  return
-    
     $(document).on 'click', '.js-trigger-switch-primary', ->
       $(this).removeClass("in-active")
       $(".js-trigger-switch-secondary").addClass("in-active")
@@ -255,26 +194,43 @@ $ ->
       $(".js-trigger-switch-primary").addClass("in-active")
       $(".exchart-patterns-list-container").addClass("is-secondary")
       
-    $(document).on 'click', '.js-trigger-pattern-detail', ->
+    
+    #ラベルクリック処理      
+    if $(window).width() > 767
+      fullscreen = false
+    else
+      fullscreen = false
+    
+    unit_no = ""
+    $('.js-exchart-label').click ->
+      unit_no = $(this).attr('unit_no')
+      
+    modal_setting = (unit_no) ->
+      $(".exchart-axis-pattern").addClass("hide").removeClass("is-active")
+      url = "/patterns/unit/" + unit_no
       $.ajax(
         type: 'GET',
-        url: '/excharts/' + $(this).attr('language_id') + '/'+$(this).attr('pattern_no') + '/detail'
-      ).done ->
-        $('#pattern_detail').modal()
-        href = $('.js-link-to-pattern').attr("href")
-        href = href + "?path_id=" + path_id
-        $('#pattern_detail a').attr("href", href)
-    
-    $('.js-trigger-add-practice').click ->
-      language_id = $(this).attr("language_id")
-      pattern_no = $(this).attr("pattern_no")
-      $("#practice_language_id").val(language_id)
-      $("#practice_pattern_no").val(pattern_no)
-      $('#add-practice').modal()
+        url: url
+      ).done (data) ->
+        if $("body").hasClass("excharts compare_result")
+          original_data = original_data2
+        for value, index in data
+          pattern_index = value.pattern_index
+          if original_data[pattern_index] == 1
+            $(".exchart-axis-pattern:eq(" + index + ")").addClass("is-active")
+          $(".exchart-axis-pattern:eq(" + index + ")").attr("href", "/patterns/" + value.id)
+          $(".exchart-axis-pattern:eq(" + index + ") h4").text(value.pattern_name)
+          $(".exchart-axis-pattern:eq(" + index + ") p").text(value.summary)
+        $(".exchart-axis-pattern").removeClass("hide")
       
+    $('.js-exchart-label').modaal({
+        fullscreen: fullscreen
+        before_open: ->
+          modal_setting(unit_no)
+          return
+      })
       
     #canvas画像化
-    
     
     Base64toBlob = (base64) ->
       tmp = base64.split(',')

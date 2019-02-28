@@ -1,6 +1,6 @@
 h4.m-t-0.m-b-0.p-y-10.p-l-10.box-shadow-primary.header-nav
   |経験チャート比較
-.page-container.row-space-top-2
+.page-container.row-space-top-1
   h5
     |#{(@exchart_1.created_at).strftime("%Y/%m/%d")} 
     |→ 
@@ -13,12 +13,14 @@ h4.m-t-0.m-b-0.p-y-10.p-l-10.box-shadow-primary.header-nav
     i.fa.fa-circle.text-green.h3.p-r-5
     span.small.p
       |#{t('prev_area')}
-.flex-container.flex-center.row-space-3.row-space-top-3
-  .col-6.col-sm-12
-    canvas#myChart[height="230"]
+.flex-container.flex-center.row-space-3.row-space-top-3.exchart-chart-wrapper
+  .col-6.col-md-8.col-sm-12.exchart-chart-container
+    .col-12.p-x-0
+      = render "render/shared/exchart_label"
+      canvas#myChart[width="230px", height="230px"]
 
-.col-6.col-sm-12.p-b-0.row-space-top-4.result-nav-container
-    ul.result-nav.row.text-center
+.col-6.col-sm-12.p-b-0.row-space-top-4.index-nav-container
+    ul.index-nav.row.text-center
       li.js-trigger-switch-primary.col-6.p-t-0
         .nav-inner
         p 伸びたパターン
@@ -29,47 +31,3 @@ h4.m-t-0.m-b-0.p-y-10.p-l-10.box-shadow-primary.header-nav
 hr.m-t-0
 
 = render "patterns_list", primary_patterns: @primary_patterns, secondary_patterns: @secondary_patterns
-
-//.row-space-top-5
-//  ul.result-nav.row.text-center
-//    li.js-trigger-switch-proximal.col-6.p-t-0
-//      .nav-inner
-//      p.small #{t('chart_extended_pattern')}
-//    li.js-trigger-switch-current.col-6.p-t-0.in-active
-//      .nav-inner
-//      p.small #{t('chart_all_pattern')}
-//.page-container.row-space-top-2
-//  
-//  .proximal-patterns-container
-//    - @currentpatterns.each do |cp|
-//      .card.col-12.col-center.p-x-20.p-y-10.row-space-2.required-container.bg-yellow-1
-//        p.small
-//          |##{cp.pattern_no}
-//        h3.m-t-5.required-container.row-space-1
-//          |#{cp.pattern_name}
-//        p.p-b-10.row-space-1.bottom-bordered
-//          | #{cp.summary}
-//        
-//        .text-right
-//          .text-contrast.h3.inline.m-r-10.js-trigger-add-practice{pattern_no = "#{cp.pattern_no}"}
-//            i.fa.fa-list-ul
-//          .text-contrast.h3.inline.m-l-10.js-trigger-pattern-detail{pattern_no = "#{cp.pattern_no}"}
-//            i.fa.fa-file-text-o
-//  
-//  .current-patterns-container
-//    - @allpatterns.each do |cp|
-//      .card.col-12.col-center.p-x-20.p-y-10.row-space-2.required-container.bg-yellow-2
-//        p.small
-//          |##{cp.pattern_no}
-//        h3.m-t-5.required-container.row-space-1
-//          |#{cp.pattern_name}
-//        p.p-b-10.row-space-1.bottom-bordered
-//          | #{cp.summary}
-//        
-//        .text-right
-//          .text-contrast.h3.inline.m-r-10.js-trigger-add-practice{pattern_no = "#{cp.pattern_no}"}
-//            i.fa.fa-list-ul
-//          .text-contrast.h3.inline.m-l-10.js-trigger-pattern-detail{pattern_no = "#{cp.pattern_no}"}
-//            i.fa.fa-file-text-o
-//            
-//#pattern-detail-container//

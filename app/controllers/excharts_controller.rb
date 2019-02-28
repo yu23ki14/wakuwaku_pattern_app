@@ -1,4 +1,7 @@
 class ExchartsController < ApplicationController
+  
+  include Recommend
+  
   def index
     @results = @user.excharts.order(created_at: "DESC")
     @results.each_with_index do |e, i|
@@ -9,19 +12,19 @@ class ExchartsController < ApplicationController
   def show
     @exchart = Exchart.find(params[:id])
     gon.data = @exchart.data
-    @patterns = Pattern.all.order(:pattern_no)
+    @patterns = Pattern.all.order(:pattern_index)
     gon.patterns = @patterns
     
-    base_pattern_no = []
+    base_pattern_index = []
     @patterns.length.times do |index|
-      base_pattern_no.push(index.to_s)
+      base_pattern_index.push(index.to_s)
     end
-    primary_pattern_no = JSON.parse(gon.data).select{|key,value| value > 0 }.keys()
-    secondary_pattern_no = base_pattern_no - primary_pattern_no
-    @primary_patterns = @patterns.where(pattern_no: primary_pattern_no)
-    @secondary_patterns = @patterns.where(pattern_no: secondary_pattern_no)
+    primary_pattern_index = JSON.parse(gon.data).select{|key,value| value > 0 }.keys()
+    secondary_pattern_index = base_pattern_index - primary_pattern_index
+    @primary_patterns = @patterns.where(pattern_index: primary_pattern_index)
+    @secondary_patterns = @patterns.where(pattern_index: secondary_pattern_index)
     
-    @recommended_patterns = @patterns.first(3)
+    @recommended_patterns = three_recommended_patterns(gon.data)
   end
   
   def pdf
@@ -103,14 +106,14 @@ class ExchartsController < ApplicationController
       gon.data = data1
       data2 = @exchart_2.data
       gon.data2 = data2
-      @patterns = Pattern.order(:pattern_no)
+      @patterns = Pattern.order(:pattern_index)
       
-      prev_pattern_no = JSON.parse(data1).select{|key,value| value > 0 }.keys()
-      new_pattern_no = JSON.parse(data2).select{|key,value| value > 0 }.keys()
-      all_pattern_no = prev_pattern_no + new_pattern_no
-      new_pattern_no = all_pattern_no - prev_pattern_no
-      @primary_patterns = @patterns.where(pattern_no: new_pattern_no)
-      @secondary_patterns = @patterns.where(pattern_no: all_pattern_no)
+      prev_pattern_index = JSON.parse(data1).select{|key,value| value > 0 }.keys()
+      new_pattern_index = JSON.parse(data2).select{|key,value| value > 0 }.keys()
+      all_pattern_index = prev_pattern_index + new_pattern_index
+      new_pattern_index = all_pattern_index - prev_pattern_index
+      @primary_patterns = @patterns.where(pattern_index: new_pattern_index)
+      @secondary_patterns = @patterns.where(pattern_index: all_pattern_index)
     end
   end
   

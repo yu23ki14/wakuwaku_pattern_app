@@ -6,22 +6,24 @@ csv.each_with_index do |patterns, i|
   # skip a label row
   next if i === 0
 
-  pattern_no = patterns[1]
-  pattern_name = patterns[2]
-  summary = patterns[3]
-  context = patterns[4]
-  b_problem = patterns[5]
-  problem = patterns[6]
-  b_solution = patterns[7]
-  solution = patterns[8]
-  consequence = patterns[9]
-  unit_no = patterns[10]
-  category_id = patterns[11]
-  pattern_group_id = patterns[12]
+  pattern_index = patterns[1]
+  pattern_id = patterns[2]
+  pattern_name = patterns[3]
+  summary = patterns[4]
+  context = patterns[5]
+  b_problem = patterns[6]
+  problem = patterns[7]
+  b_solution = patterns[8]
+  solution = patterns[9]
+  consequence = patterns[10]
+  unit_no = patterns[11]
+  category_id = patterns[12]
+  pattern_group_id = patterns[13]
 
   Pattern.seed do |s|
     s.id   = i
-    s.pattern_no = pattern_no
+    s.pattern_index = pattern_index
+    s.pattern_id = pattern_id
     s.pattern_name = pattern_name
     s.summary = summary
     s.context = context

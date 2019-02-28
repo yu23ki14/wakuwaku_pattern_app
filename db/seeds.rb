@@ -13,4 +13,4 @@ require "csv"
 
 #CSV.foreach('db/csv/patterns.csv') do |row|
 #  Pattern.create(:language_id => row[0], :cat_code => row[1], :cat_code_24 => row[2], :pattern_no => row[3], :pattern_name => row[4], :summary => row[5], :context => row[6], :b_problem => row[7], :problem => row[8], :b_solution => row[9], :solution => row[10], :consequence => row[11])
-#end
+#endAdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
