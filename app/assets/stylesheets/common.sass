@@ -175,7 +175,7 @@ label
   
 /* footer =============================================*/
 footer
-  height: 100px
+  height: 20px
 body.welcome
   footer
     height: 0px
@@ -368,36 +368,35 @@ input[type="text"], textarea, input[type="search"], .input, input[type="email"],
   &:hover
     text-decoration: none
     background-color: $brand-light-gray
+    color: $brand-contrast
   &.button-fixed
     position: fixed
     bottom: 30px
   &.button-lg
     min-width: 200px
-  
+  &.button-sm
+    font-size: 14px
+    padding: 2px 10px
   &.button-outline
     color: $brand-gray
     border-color: $brand-light-gray
     &:hover
       color: $brand-contrast
-  
   &.button-primary
     color: $brand-contrast
     border-color: $brand-theme
     background-color: $brand-theme
     &:hover
       background-color: $brand-theme-hover
-  
   &.button-primary-outline
     color: $brand-theme
     border-color: $brand-theme
     &:hover
       color: $brand-contrast
       background-color: $brand-theme
-  
   &.button-danger
     background-color: $brand-dark-gray
     color: $brand-contrast
-    
   &[disabled="disabled"]
     pointer-events: none
     background-color: $brand-light-gray

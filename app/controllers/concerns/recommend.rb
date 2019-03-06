@@ -20,7 +20,7 @@ module Recommend
     grouped_patterns.each do |group|
       recommended_patterns_id.push(group[1][0])
     end
-    return Pattern.where(id: recommended_patterns_id)
+    return recommended_patterns_id
   end
 
 end

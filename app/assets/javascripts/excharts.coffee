@@ -121,7 +121,8 @@ $ ->
     #データの成形
       
     original_data = JSON.parse(gon.data)
-      
+    original_data2 = JSON.parse(gon.data)
+    recommended_patterns_id = gon.recommended_patterns_id
     if $("body").hasClass("excharts compare_result")
       original_data2 = JSON.parse(gon.data2)
       cleaned_data = {}
@@ -135,12 +136,15 @@ $ ->
       original_data2 = cleaned_data
       delete original_data2['1']; delete original_data2['11']; delete original_data2['21']; delete original_data2['31'];
       data2 = exchart_clean_data(original_data2)
-      console.log data2
-      
+    
+    else
+      for value, index in recommended_patterns_id
+        original_data2[value] = 1
+      delete original_data2['1']; delete original_data2['11']; delete original_data2['21']; delete original_data2['31'];
+      temp_data2 = exchart_clean_data(original_data2)
     delete original_data['1']; delete original_data['11']; delete original_data['21']; delete original_data['31'];
     data = exchart_clean_data(original_data)
-    console.log data
-    
+
     #ラベル
     label = ["一歩踏み出す","自分なりに\n実践を重ねる","本質を\n捉えて動く","知ってもらう","価値を伝える","幸せをもたらす","つながり始める","心が通う体験を\n共有する","ファンとともに進む","実践仲間と\n出会う","さらに磨いていく","実践コミュニティを\nともにつくる"]
     
@@ -158,7 +162,6 @@ $ ->
                   min: 0
               legend:
                 display: false
-              animation: false
               }
                 
     #チャート生成
@@ -169,8 +172,8 @@ $ ->
         
         datasets: [ {
           data: data
-          pointRadius:0
-          pointHitRadius:20
+          pointRadius: 0
+          pointHitRadius: 20
           backgroundColor: data1_color
           borderColor: data1_color
           borderWidth: 1
@@ -229,6 +232,17 @@ $ ->
           modal_setting(unit_no)
           return
       })
+      
+    #実践すると良いパターンのチャート表示
+    $(document).on 'click', '.js-chart-switch',->
+      if $(this).hasClass("is-active")
+        myChart.data.datasets[1].data = []
+        myChart.update()
+      else
+        myChart.data.datasets[1].data = temp_data2
+        myChart.update()
+      $(this).toggleClass("is-active")
+      return false
       
     #canvas画像化
     

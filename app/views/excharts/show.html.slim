@@ -1,11 +1,21 @@
 h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav 経験チャート
 .page-container.row-space-top-2
+  .row-space-2
+    = link_to "javascript:history.back();", class: "button button-sm strong"
+      i.fa.fa-chevron-left.p-r-5
+      |戻る
   .flex-container.flex-a-start.exchart-chart-wrapper
     .col-6.col-md-8.col-sm-12.exchart-chart-container
       h3.m-t-0.row-space-5 #{(@exchart.created_at).strftime("%Y年%m月%d日")}の結果
       .col-12.p-x-0
         = render "render/shared/exchart_label"
         canvas#myChart[width="230px", height="230px"]
+      hr.row-space-top-5
+      .recommended-chart-switch.p-l-5.row-space-top-2.text-right
+        p.small.p-b-5 おすすめパターン実践後のチャートを表示
+        = link_to "#", class: "switch-label js-chart-switch"
+          span.switch-content
+          span.switch-circle
     .col-6.col-md-12
       = render "render/shared/recommended_patterns", recommended_patterns: @recommended_patterns
             

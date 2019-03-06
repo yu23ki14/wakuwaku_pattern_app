@@ -13,7 +13,7 @@
     padding-right: 20px
     border-right: 1px solid $brand-gray
 
-.patterns-list-container
+.patterns-list-category-wrapper
   .p
     @media (max-width: 445px)
       font-size: 14px
@@ -39,7 +39,15 @@
   .pattern-list-category-name
     @media (max-width: 767px)
       text-align: center
-  
-  .pattern-list-category-description-open
-  
-    
+      
+.patterns-list-wrapper
+  .patterns-list
+
+    &:nth-of-type(1)
+      background-color: rgba($red, .2)
+    &:nth-of-type(2)
+      background-color: rgba($blue, .2)
+    &:nth-of-type(3)
+      background-color: rgba($green, .2)
+    &:nth-of-type(4)
+      background-color: rgba($yellow, .2)

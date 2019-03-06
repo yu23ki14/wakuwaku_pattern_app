@@ -72,3 +72,4 @@ $ ->
   
   $(document).on 'click', '.side-menu-inner',->
     $("body").removeClass("menu-opened")
+  

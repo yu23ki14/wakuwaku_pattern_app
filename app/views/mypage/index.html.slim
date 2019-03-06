@@ -19,9 +19,15 @@ h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav ホーム
         .col-12.p-x-0
           = render "render/shared/exchart_label"
           canvas#myChart[width="230px", height="230px"]
-      
-      .col-6.col-md-12
+        hr.row-space-top-5
+        .recommended-chart-switch.p-l-5.row-space-top-2.text-right
+          p.small.p-b-5 おすすめパターン実践後のチャートを表示
+          = link_to "#", class: "switch-label js-chart-switch"
+            span.switch-content
+            span.switch-circle
+      .col-6.col-md-12          
         = render "render/shared/recommended_patterns", recommended_patterns: @recommended_patterns
+        
   - else
     = link_to patterns_path
       .col-6.col-sm-12.col-center.p-x-10.p-y-5.row-space-top-2.row-space-2.required-container.bg-theme.text-contrast

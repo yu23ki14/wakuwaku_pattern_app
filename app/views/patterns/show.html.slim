@@ -1,36 +1,45 @@
 h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav パターン
 .page-container.row-space-4
-  
-  .flex-container.flex-a-start.flex-center.p-x-10
+  .row-space-top-2
+    = link_to "javascript:history.back();", class: "button button-sm strong"
+      i.fa.fa-chevron-left.p-r-5
+      |戻る
+  .flex-container.flex-a-start.flex-center
             
-    .pattern-container.col-8.col-md-10.col-sm-12.row-space-top-3
-      = link_to "javascript:history.back();", class: "h6"
-        |< 戻る
-      h2.text-center.m-t-0.m-b-0 #{@pattern.pattern_name}
+    .pattern-container.col-8.col-md-10.col-sm-12.row-space-top-1
+      
+      .flex-container
+        = link_to patterns_path(anchor: "category-#{@pattern.category.category_id}"), class: "p-r-5"
+          p #{@pattern.pattern_id} :
+        = link_to patterns_path(anchor: "group-#{@pattern.pattern_group.id.to_s}")
+          p #{@pattern.pattern_group.name}
+      h2.text-center.row-space-top-2.m-b-0 #{@pattern.pattern_name}
       .flex-container.flex-center
         .col-4.col-md-6.col-sm-8
           //= image_tag "pattern_img/#{@pattern.pattern_no}.png", class: "col-12"
           = image_tag "pattern_img/1.png", class: "col-12"
-      p.m-t-0 #{@pattern.context}
-      p.strong.text-center.p-y-20 ▼ そのとき
-      p.row-space-1.strong.text-justify #{@pattern.b_problem}
-      p.text-justify #{html_escape(@pattern.problem).gsub(/\r\n|\r|\\n/, "<br />").html_safe}
-      p.strong.text-center.p-y-20 ▼ そこで
-      p.row-space-1.strong.text-justify #{@pattern.b_solution}
-      p.text-justify #{@pattern.solution}
-      p.strong.text-center.p-y-20 ▼ そうすると
-      p.text-justify #{@pattern.consequence}
+      .p-x-10
+        p.m-t-0 #{@pattern.context}
+        p.strong.text-center.p-y-20 ▼ そのとき
+        p.row-space-1.strong.text-justify #{@pattern.b_problem}
+        p.text-justify #{html_escape(@pattern.problem).gsub(/\r\n|\r|\\n/, "<br />").html_safe}
+        p.strong.text-center.p-y-20 ▼ そこで
+        p.row-space-1.strong.text-justify #{@pattern.b_solution}
+        p.text-justify #{@pattern.solution}
+        p.strong.text-center.p-y-20 ▼ そうすると
+        p.text-justify #{@pattern.consequence}
     
-      .flex-container
-        hr.row-space-4.row-space-top-8.col-8
-      
-      h4.text-center.row-space-2
-        | 紐づくタイニーパターン
+      - if @tiny_patterns.present?
+        .flex-container
+          hr.row-space-4.row-space-top-8.col-8
         
-      .flex-container.flex-a-start.flex-wrap
-        - @tiny_patterns.each do |pattern|
-          = link_to "#tiny-pattern-modal", class: "col-6 col-sm-12 js-trigger-tiny-pattern-modal", tiny_id: pattern.id
-            .pattern-card.is-tiny.box-shadow-primary.p-x-20.p-y-20
-              h6.m-b-0.m-t-0.text-center #{pattern.name}
+        h4.text-center.row-space-2
+          | 紐づくタイニーパターン
+          
+        .flex-container.flex-a-start.flex-wrap
+          - @tiny_patterns.each do |pattern|
+            = link_to "#tiny-pattern-modal", class: "col-6 col-sm-12 js-trigger-tiny-pattern-modal", tiny_id: pattern.id
+              .pattern-card.is-tiny.box-shadow-primary.p-x-20.p-y-20
+                h6.m-b-0.m-t-0.text-center #{pattern.name}
           
 = render "tiny_pattern"

@@ -18,9 +18,9 @@
       ul.side-menu-sub-list
         - @category.each_with_index do |category, i|
           li
-            .side-menu-inner.p-y-5.p-l-10.m-l-10[id="side-menu-category-#{i.to_s}"]
+            .side-menu-inner.p-y-5.p-l-10.m-l-10[id="side-menu-category-#{category.category_id}"]
               |#{category.category_id}. #{category.short_name}
-              = link_to patterns_path(anchor: "category-#{i}")
+              = link_to patterns_path(anchor: "category-#{category.category_id}")
                 |#{category.short_name}
     li
       .side-menu-inner.p-y-5.p-l-10[class="#{controller.controller_name == "excharts" ? "is-active" : "" }"]

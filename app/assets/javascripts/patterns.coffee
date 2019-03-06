@@ -7,20 +7,20 @@ $ ->
     $('#add-project-practice').modal()
 
   if $("body").hasClass("patterns index")
-    category_1_position = $("#category-1").offset().top - 50
-    category_2_position = $("#category-2").offset().top - 50
-    category_3_position = $("#category-3").offset().top - 50
+    category_B_position = $("#category-B").offset().top - 50
+    category_C_position = $("#category-C").offset().top - 50
+    category_D_position = $("#category-D").offset().top - 50
     $(window).on 'load scroll resize', ->
       $(".side-menu-sub-list .side-menu-inner").removeClass("is-active")
       scroll_position = $(window).scrollTop()
-      if scroll_position < category_1_position
-        $("#side-menu-category-0").addClass("is-active")
-      else if scroll_position < category_2_position
-        $("#side-menu-category-1").addClass("is-active")
-      else if scroll_position < category_3_position
-        $("#side-menu-category-2").addClass("is-active")
+      if scroll_position < category_B_position
+        $("#side-menu-category-A").addClass("is-active")
+      else if scroll_position < category_C_position
+        $("#side-menu-category-B").addClass("is-active")
+      else if scroll_position < category_D_position
+        $("#side-menu-category-C").addClass("is-active")
       else
-        $("#side-menu-category-3").addClass("is-active")
+        $("#side-menu-category-D").addClass("is-active")
         
       if $(window).width() > 767
         $.each $(".js-patterns-unit"), ->
@@ -75,3 +75,16 @@ $ ->
         setTimeout ->
           $(window).scrollTop($(window).scrollTop() + 150)
         , 100
+        
+    $(document).on 'click', '.js-trigger-switch-category', ->
+      $(this).removeClass("in-active")
+      $(".js-trigger-switch-patterns").addClass("in-active")
+      $(".patterns-list-wrapper").addClass("hide")
+      $(".patterns-list-category-wrapper").removeClass("hide")
+    
+    $(document).on 'click', '.js-trigger-switch-patterns', ->
+      $(this).removeClass("in-active")
+      $(".js-trigger-switch-category").addClass("in-active")
+      $(".exchart-patterns-list-container").addClass("is-secondary")
+      $(".patterns-list-category-wrapper").addClass("hide")
+      $(".patterns-list-wrapper").removeClass("hide")

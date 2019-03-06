@@ -24,7 +24,8 @@ class ExchartsController < ApplicationController
     @primary_patterns = @patterns.where(pattern_index: primary_pattern_index)
     @secondary_patterns = @patterns.where(pattern_index: secondary_pattern_index)
     
-    @recommended_patterns = three_recommended_patterns(gon.data)
+    gon.recommended_patterns_id = three_recommended_patterns(gon.data)
+    @recommended_patterns = Pattern.where(id: gon.recommended_patterns_id)
   end
   
   def pdf

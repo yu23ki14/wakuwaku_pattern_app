@@ -1,6 +1,10 @@
 h4.m-t-0.m-b-0.p-y-10.p-l-10.box-shadow-primary.header-nav
   |経験チャート比較
-.page-container.row-space-top-1
+.page-container.row-space-top-2
+  .row-space-2
+    = link_to "javascript:history.back();", class: "button button-sm strong"
+      i.fa.fa-chevron-left.p-r-5
+      |戻る
   h5
     |#{(@exchart_1.created_at).strftime("%Y/%m/%d")} 
     |→ 

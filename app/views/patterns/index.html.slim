@@ -2,18 +2,18 @@ h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav パターン
 
 .page-container
   - @categories.each_with_index do |category, i|
-    h2[id="#{"category-" + i.to_s}"]
+    h2.m-b-0[id="#{"category-" + category.category_id}"]
       span.bottom-bordered.thick #{category.short_name}
     - groups = category.pattern_groups
     - groups.each_with_index do |group, i|
-      .pattern_group[class="#{i == 0 ? "row-space-top-4" : ""}"]
-        h3.row-space-top-5
+      .pattern_group.p-t-30[id="#{"group-" + group.id.to_s}"]
+        h3
           span.bottom-bordered
             |#{group.name}
         .flex-container.flex-wrap.flex-space.flex-a-start.js-patterns-unit
           - patterns = group.patterns
           - patterns.each do |pattern|
-            = link_to pattern, class: "col-4 col-md-6 col-sm-12 row-space-2"
+            = link_to pattern, class: "col-4 col-md-6 col-sm-12"
               .pattern-card.box-shadow-primary
                 h4.m-t-0.text-center #{pattern.pattern_name}
                 p.text-center #{pattern.summary}

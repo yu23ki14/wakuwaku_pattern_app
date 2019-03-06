@@ -6,7 +6,8 @@ class MypageController < ApplicationController
     if @user.excharts.present?
       @exchart = @user.excharts.last
       gon.data = @exchart.data
-      @recommended_patterns = three_recommended_patterns(gon.data)
+      gon.recommended_patterns_id = three_recommended_patterns(gon.data)
+      @recommended_patterns = Pattern.where(id: gon.recommended_patterns_id)
     end
     @quotation = Quotation.find(quotation_seed)
   end
