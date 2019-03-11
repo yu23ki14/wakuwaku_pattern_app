@@ -18,14 +18,14 @@ h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav パターン
         .col-4.col-md-6.col-sm-8
           //= image_tag "pattern_img/#{@pattern.pattern_no}.png", class: "col-12"
           = image_tag "pattern_img/1.png", class: "col-12"
-      .p-x-10
+      article.p-x-10
         p.m-t-0 #{@pattern.context}
         p.strong.text-center.p-y-20 ▼ そのとき
         p.row-space-1.strong.text-justify #{@pattern.b_problem}
         p.text-justify #{html_escape(@pattern.problem).gsub(/\r\n|\r|\\n/, "<br />").html_safe}
         p.strong.text-center.p-y-20 ▼ そこで
         p.row-space-1.strong.text-justify #{@pattern.b_solution}
-        p.text-justify #{@pattern.solution}
+        p.text-justify #{@pattern.solution.html_safe}
         p.strong.text-center.p-y-20 ▼ そうすると
         p.text-justify #{@pattern.consequence}
     

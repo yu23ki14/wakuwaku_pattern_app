@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :set_user
   before_action :set_category
   before_action :set_excharts
-  before_action :backhome
+  #before_action :backhome
   before_action :configure_permitted_parameters, if: :devise_controller?
   
   def after_sign_in_path_for(resource)
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   
   private
     def backhome
-      if controller_name == "welcome" || controller_name == "registrations" || controller_name == "sessions" || controller_name == "alexa_talks" || controller_name == "passwords"
+      if controller_name == "welcome" || controller_name == "registrations" || controller_name == "sessions" || controller_name == "passwords"
       else
         if !user_signed_in?
           redirect_to root_path, notice: 'ログインしてください。'

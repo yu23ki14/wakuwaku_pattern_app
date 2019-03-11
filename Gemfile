@@ -37,16 +37,16 @@ gem 'gon', '6.2.1'
 gem 'seed-fu', '2.3.9'
 
 #use ransack as serch
-gem 'ransack', '2.0.1'
+gem 'ransack', '2.1.1'
 
-gem 'google-analytics-rails', '1.1.1'
+#gem 'google-analytics-rails', '1.1.1'
 
 #use newrelic as service surveillance
-gem 'newrelic_rpm', '5.4.0.347'
+#gem 'newrelic_rpm', '5.4.0.347'
 
 #use wicked pdf as pdf export
-gem 'wkhtmltopdf-binary', '0.12.4'
-gem 'wicked_pdf', '1.1.0'
+#gem 'wkhtmltopdf-binary', '0.12.4'
+#gem 'wicked_pdf', '1.1.0'
 
 #use dotenv as secret valiables
 gem 'dotenv-rails', '2.5.0'
@@ -54,8 +54,8 @@ gem 'dotenv-rails', '2.5.0'
 #use whenever as crond
 gem 'whenever', '0.10.0'
 
-#use railsadmin as admin panel
-
+#use activeadmin as admin panel
+gem 'activeadmin', github: 'activeadmin'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
