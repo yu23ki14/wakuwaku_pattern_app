@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_11_021504) do
+ActiveRecord::Schema.define(version: 2019_03_11_071557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_021504) do
 
   create_table "members", force: :cascade do |t|
     t.integer "member_id"
-    t.integer "hashed_id"
+    t.string "hashed_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -101,12 +101,12 @@ ActiveRecord::Schema.define(version: 2019_03_11_021504) do
     t.index ["pattern_group_id"], name: "index_patterns_on_pattern_group_id"
   end
 
-  create_table "quotations", force: :cascade do |t|
+  create_table "quotes", force: :cascade do |t|
     t.text "content"
     t.bigint "pattern_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["pattern_id"], name: "index_quotations_on_pattern_id"
+    t.index ["pattern_id"], name: "index_quotes_on_pattern_id"
   end
 
   create_table "tiny_patterns", force: :cascade do |t|

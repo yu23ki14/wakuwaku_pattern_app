@@ -1,9 +1,9 @@
-class CreateQuotations < ActiveRecord::Migration[5.2]
+class CreateQuotes < ActiveRecord::Migration[5.2]
   def change
-    create_table :quotations do |t|
+    create_table :quotes do |t|
       t.text :content
       t.references :pattern
-
+      
       t.timestamps
     end
   end
