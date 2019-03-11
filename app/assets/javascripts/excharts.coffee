@@ -31,7 +31,7 @@ $ ->
       delete original_data['1']; delete original_data['11']; delete original_data['21']; delete original_data['31'];
       data = exchart_clean_data(original_data)
 
-      label = ["test","test","test","test","test","test","test","test","test","test","test","test"]
+      label = ["一歩踏み出す","自分なりに実践を重ねる","本質を捉えて動く","知ってもらう","価値を伝える","幸せをもたらす","つながり始める","心が通う体験を共有する","ファンとともに進む","実践仲間と出会う","さらに磨いていく","実践コミュニティをともにつくる"]
       #チャートのオプション
       options = {scale:
                   display: true
@@ -146,7 +146,7 @@ $ ->
     data = exchart_clean_data(original_data)
 
     #ラベル
-    label = ["一歩踏み出す","自分なりに\n実践を重ねる","本質を\n捉えて動く","知ってもらう","価値を伝える","幸せをもたらす","つながり始める","心が通う体験を\n共有する","ファンとともに進む","実践仲間と\n出会う","さらに磨いていく","実践コミュニティを\nともにつくる"]
+    label = ["一歩踏み出す","自分なりに実践を重ねる","本質を捉えて動く","知ってもらう","価値を伝える","幸せをもたらす","つながり始める","心が通う体験を共有する","ファンとともに進む","実践仲間と出会う","さらに磨いていく","実践コミュニティをともにつくる"]
     
     #チャートのオプション
     options = {scale:
@@ -162,6 +162,8 @@ $ ->
                   min: 0
               legend:
                 display: false
+              tooltips:
+                enabled: false
               }
                 
     #チャート生成
@@ -265,6 +267,14 @@ $ ->
     blob = Base64toBlob(base64)
     
     $(".chart-image").val(base64)
+    
+    if $(window).width() > 767
+      maxHeight = 0
+      $.each $(".pattern-card"), ->
+        if $(this).height() > maxHeight
+          maxHeight = $(this).height()
+        return
+      $(".pattern-card").height maxHeight
     
   if $("body").hasClass("excharts compare")
     array = []

@@ -10,6 +10,8 @@
       .field.row-space-top-5
         = f.email_field :email, class: "col-12 col-center", placeholder: "メールアドレス"
       
+      .field.row-space-top-5
+        = f.text_field :member_id, class: "col-12 col-center", placeholder: "シリアルコード"
       
       .field.row-space-top-5
         //- if @minimum_password_length

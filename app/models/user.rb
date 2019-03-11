@@ -12,4 +12,10 @@ class User < ApplicationRecord
   has_many :excharts
   has_many :events
   has_many :learning_styles
+  belongs_to :member
+  
+  before_create -> { 
+    member = Member.find_by(hashed_id: self.member_id.to_i)
+    self.member_id = member.member_id
+  }
 end
