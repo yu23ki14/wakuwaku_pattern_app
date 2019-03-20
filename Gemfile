@@ -41,6 +41,8 @@ gem 'ransack', '2.1.1'
 
 #gem 'google-analytics-rails', '1.1.1'
 
+gem 'rest-client'
+
 #use newrelic as service surveillance
 #gem 'newrelic_rpm', '5.4.0.347'
 

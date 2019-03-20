@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_071557) do
   end
 
   create_table "members", force: :cascade do |t|
-    t.integer "member_id"
+    t.string "member_id"
     t.string "hashed_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
