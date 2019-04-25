@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :timeoutable, :trackable, :validatable
 
   belongs_to :member
+  has_many :excharts
   
 end

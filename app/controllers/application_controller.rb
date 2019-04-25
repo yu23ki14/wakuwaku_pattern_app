@@ -29,12 +29,12 @@ class ApplicationController < ActionController::Base
     end
     
     def set_category
-      @category = Category.all
+      @categories = Category.all.order(category_id: "asc")
     end
     
     def set_excharts
       if user_signed_in?
-        @latest_excharts = @user.excharts.last(5)
+        @latest_excharts = @user.excharts.order(created_at: "desc").last(5)
       end
     end
 

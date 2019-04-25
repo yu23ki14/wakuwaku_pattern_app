@@ -5,19 +5,17 @@
         = link_to pattern, class: "col-4 col-md-6 col-sm-12 row-space-2"
           .pattern-card.box-shadow-primary.p-x-20.p-y-20
             h4.m-t-0.text-center #{pattern.pattern_name}
-            p.text-center #{pattern.summary}
+            p.text-center #{pattern.summary.html_safe}
             .text-center
-              //= image_tag "pattern_img/#{pattern.pattern_no}.png", class: "col-7"
-              = image_tag "pattern_img/1.png", class: "col-7"
-            p #{pattern.b_solution}
+              = lazy_image_tag "pattern_img/image#{pattern.pattern_index}.png", class: "col-7"
+            p #{pattern.b_solution.html_safe}
   .exchart-secondary-patterns
     .flex-container.flex-wrap.flex-a-start
       - secondary_patterns.each_with_index do |pattern|
         = link_to pattern, class: "col-4 col-md-6 col-sm-12 row-space-2"
           .pattern-card.box-shadow-primary.p-x-20.p-y-20
             h4.m-t-0.text-center #{pattern.pattern_name}
-            p.text-center #{pattern.summary}
+            p.text-center #{pattern.summary.html_safe}
             .text-center
-              //= image_tag "pattern_img/#{pattern.pattern_no}.png", class: "col-7"
-              = image_tag "pattern_img/1.png", class: "col-7"
-            p #{pattern.b_solution}
+              = lazy_image_tag "pattern_img/image#{pattern.pattern_index}.png", class: "col-7"
+            p #{pattern.b_solution.html_safe}

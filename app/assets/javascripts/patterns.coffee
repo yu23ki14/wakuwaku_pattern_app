@@ -76,15 +76,15 @@ $ ->
           $(window).scrollTop($(window).scrollTop() + 150)
         , 100
         
-    $(document).on 'click', '.js-trigger-switch-category', ->
-      $(this).removeClass("in-active")
-      $(".js-trigger-switch-patterns").addClass("in-active")
-      $(".patterns-list-wrapper").addClass("hide")
-      $(".patterns-list-category-wrapper").removeClass("hide")
-    
-    $(document).on 'click', '.js-trigger-switch-patterns', ->
-      $(this).removeClass("in-active")
-      $(".js-trigger-switch-category").addClass("in-active")
-      $(".exchart-patterns-list-container").addClass("is-secondary")
-      $(".patterns-list-category-wrapper").addClass("hide")
-      $(".patterns-list-wrapper").removeClass("hide")
+    #$(document).on 'click', '.js-trigger-switch-category', ->
+    #  $(this).removeClass("in-active")
+    #  $(".js-trigger-switch-patterns").addClass("in-active")
+    #  $(".patterns-list-wrapper").addClass("hide")
+    #  $(".patterns-list-category-wrapper").removeClass("hide")
+    #
+    #$(document).on 'click', '.js-trigger-switch-patterns', ->
+    #  $(this).removeClass("in-active")
+    #  $(".js-trigger-switch-category").addClass("in-active")
+    #  $(".exchart-patterns-list-container").addClass("is-secondary")
+    #  $(".patterns-list-category-wrapper").addClass("hide")
+    #  $(".patterns-list-wrapper").removeClass("hide")

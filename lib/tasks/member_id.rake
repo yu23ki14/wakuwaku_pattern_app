@@ -1,14 +1,11 @@
 namespace :member do
   
   task :new => :environment do
-    #response = RestClient::Request.execute(
-    #method: :get,
-    #url: 'https://kosakayuji.com/wakubi/api_pattern_app_1903/?key=fdsfjklawekjbDJKF'
-    #)
-    #
-    #p response
-    
-    response = ["1001", "1002", "M2001", "M2002"]
+    response = RestClient::Request.execute(
+    method: :get,
+    url: 'https://kosakayuji.com/wakubi/api_pattern_app_1903/?key=fdsfjklawekjbDJKF'
+    )
+    response = JSON.parse(response)
     
     response.each do |id|
       
@@ -41,7 +38,11 @@ namespace :member do
   
   task :delete => :environment do
     all = Member.all
-    response = ["1001", "1002", "M2001"]
+    response = RestClient::Request.execute(
+    method: :get,
+    url: 'https://kosakayuji.com/wakubi/api_pattern_app_1903/?key=fdsfjklawekjbDJKF'
+    )
+    response = JSON.parse(response)
     
     all.each do |member|
       if !response.include?(member.member_id)

@@ -34,27 +34,6 @@ $ ->
   
   $(document).on 'click', '.js-trigger-edit-password', (e) ->
     $(".password-container").css("display", "block")
-    
-  if $("body").hasClass("recommends")
-    height = $(window).height()
-    $("body").css("min-height", height + "px")
-    
-  #実践リスト共通JS
-  if $("body").hasClass("practices") or $("body").hasClass("projects")
-    #アーカイブに入れる時のレーティング
-    $(document).on 'click', '.range-group>a',->
-      index = $(this).index()
-      $(this).siblings().removeClass 'on'
-      i = 0
-      while i < index
-        $(this).parent().find('a').eq(i).addClass 'on'
-        i++
-      $(this).parent().find('.input-range').attr 'value', index
-      return
-    return
-    
-    $("li").click ->
-      $('#practicecontent').css({opacity: '1'}).animate({opacity: '0'}, 300)
   
   #ローダー
   $(document).on 'click', 'input[type="submit"]',->

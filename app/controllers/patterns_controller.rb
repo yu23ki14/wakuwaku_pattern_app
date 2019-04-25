@@ -1,11 +1,11 @@
 class PatternsController < ApplicationController
   before_action :set_pattern, only: [:edit, :update, :destroy, :show, :unit]
-  before_action :set_favorites, only: [:show, :details, :fav]
+  #before_action :set_favorites, only: [:show, :details, :fav]
 
   # GET /patterns
   # GET /patterns.json
   def index
-    @categories = Category.includes(pattern_groups: [:patterns]).all
+    @categories = Category.includes(pattern_groups: [:patterns]).all.order(category_id: "asc")
   end
 
   def show
@@ -13,7 +13,12 @@ class PatternsController < ApplicationController
   end
   
   def list
-    @categories = Category.all
+    type = params[:type]
+    if type.present? && type == "category" || type == "patterns"
+      @type = type
+    else
+      @type = "category"
+    end
   end
   
   def tiny
@@ -22,7 +27,7 @@ class PatternsController < ApplicationController
   end
   
   def unit
-    @patterns = Pattern.where(unit_no: params[:id])
+    @patterns = Pattern.where(unit_no: params[:id]).order(:pattern_index)
     render :json => @patterns
   end
   

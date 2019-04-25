@@ -52,6 +52,8 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :helps, only: [:index, :show] do
+  end
   
   root 'welcome#index'
 

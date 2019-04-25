@@ -1,9 +1,11 @@
-h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav パターン
-
+h4.m-t-0.p-y-10.p-l-10.m-b-0.box-shadow-primary.header-nav パターン
+= link_to "javascript:history.back();", class: "button button-sm strong back-button"
+  i.fa.fa-chevron-left.p-r-5
+  |戻る
 .page-container
   - @categories.each_with_index do |category, i|
     h2.m-b-0[id="#{"category-" + category.category_id}"]
-      span.bottom-bordered.thick #{category.short_name}
+      span.bottom-bordered.thick #{category.name}
     - groups = category.pattern_groups
     - groups.each_with_index do |group, i|
       .pattern_group.p-t-30[id="#{"group-" + group.id.to_s}"]
@@ -16,8 +18,7 @@ h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav パターン
             = link_to pattern, class: "col-4 col-md-6 col-sm-12"
               .pattern-card.box-shadow-primary
                 h4.m-t-0.text-center #{pattern.pattern_name}
-                p.text-center #{pattern.summary}
+                p.text-center #{pattern.summary.html_safe}
                 .text-center
-                  //= image_tag "pattern_img/#{pattern.pattern_no}.png", class: "col-7"
-                  = image_tag "pattern_img/1.png", class: "col-7"
-                p #{pattern.b_solution}
+                  = lazy_image_tag "pattern_img/image#{pattern.pattern_index}.png", class: "col-7"
+                p #{pattern.b_solution.html_safe}

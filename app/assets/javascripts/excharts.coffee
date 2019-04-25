@@ -101,7 +101,7 @@ $ ->
       bar_width = single_span * progress
       $(".js-trigger-bar").css("width", bar_width)
       
-      if progress == 40
+      if progress == 36
         $("input[type='submit']").attr("disabled", false)
       else
         $("input[type='submit']").attr("disabled", true)

@@ -27,5 +27,14 @@ module ApplicationHelper
   #def page_og_image
   #  @page_image||image_url(Settings.site.meta.ogp.image_path)
   #end
+  def lazy_image_tag(source, options={})
+    options['data-src'] = asset_path(source)
+    if options[:class].blank?
+      options[:class] = 'lazyload'
+    else
+      options[:class] = "lazyload #{options[:class]}"
+    end
+    image_tag('dummy.gif', options)
+  end
 
 end

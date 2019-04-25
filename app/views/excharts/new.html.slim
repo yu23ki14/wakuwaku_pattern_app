@@ -9,11 +9,10 @@
         .pattern-card.box-shadow-primary
           .p-x-20.p-y-20.js-chart-card-main
             h4.text-center #{p.pattern_name}
-            p #{p.summary}
+            p #{p.summary.html_safe}
             .text-center
-              //= image_tag "pattern_img/#{p.pattern_no}.png", class: "col-5 col-center"
-              = image_tag "pattern_img/1.png", class: "col-5 col-center"
-            p #{p.b_solution}
+              = lazy_image_tag "pattern_img/image#{p.pattern_index}.png", class: "col-5 col-center"
+            p #{p.b_solution.html_safe}
           
           .flex-container.text-center.exchart-controller
             .col-6.h3.p-b-10.js-exchart-controller[pattern_index = "#{p.pattern_index}", param=0]

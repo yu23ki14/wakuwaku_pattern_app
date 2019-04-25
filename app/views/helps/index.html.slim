@@ -1,0 +1,14 @@
+h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav ヘルプ
+
+.page-container.row-space-top-2
+  h2 comming soon...
+  //  = link_to "javascript:history.back();", class: "button button-sm strong"
+      i.fa.fa-chevron-left.p-r-5
+      |戻る
+    
+    ul.flex-container.flex-wrap.row-space-top-3
+      - @helps.each do |help|
+        li.col-12
+          = link_to help, class: "underline"
+            p
+              | ・#{help.title}

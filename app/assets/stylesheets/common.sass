@@ -115,9 +115,9 @@ p, .p
 
 @media (max-width: 767px)
   h1, .h1
-    font-size: 40px 
+    font-size: 30px 
   h2, .h2
-    font-size: 28px 
+    font-size: 24px 
   h3, .h3
     font-size: 22px 
   h4, .h4
@@ -127,7 +127,7 @@ p, .p
   h6, .h6
     font-size: 14px 
   p, .p
-    font-size: 17px 
+    font-size: 16px 
     &.small
       font-size: 13px 
     &.ex-small
@@ -139,7 +139,7 @@ p, .p
 
 @media (max-width: 330px)
   h1, .h1
-    font-size: 40px 
+    font-size: 30px 
   h2, .h2
     font-size: 25px 
   h3, .h3
@@ -720,6 +720,10 @@ input[type="text"], textarea, input[type="search"], .input, input[type="email"],
   @media (max-width: 767px)
     padding-left: 10px
     padding-right: 10px
+  &.no-padding-sp
+    @media (max-width: 767px)
+      padding-left: 0px
+      padding-right: 0px
     
 .window-height-container
   height: 100vw

@@ -1,4 +1,4 @@
-h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav ライブラリ
+h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav パターン
 .page-container.row-space-top-2
   = link_to "javascript:history.back();", class: "button button-sm strong"
     i.fa.fa-chevron-left.p-r-5
@@ -6,37 +6,42 @@ h4.m-t-0.p-y-10.p-l-10.box-shadow-primary.header-nav ライブラリ
   
   .col-6.col-md-10.col-sm-12.p-b-0.index-nav-container
     ul.index-nav.row.text-center
-      li.js-trigger-switch-category.col-6.p-t-0
+      li.js-trigger-switch-category.col-6.p-t-0[class="#{@type == "category" ? "" : "in-active"}"]
         .nav-inner
-        p カテゴリ
-      li.js-trigger-switch-patterns.col-6.p-t-0.in-active
+        = link_to list_patterns_path(type: "category")
+          p カテゴリ
+        
+      li.js-trigger-switch-patterns.col-6.p-t-0[class="#{@type == "patterns" ? "" : "in-active"}"]
         .nav-inner
-        p パターン一覧
+        = link_to list_patterns_path(type: "patterns")
+          p パターン一覧
 
 hr.m-t-0.row-space-4
 
-.page-container.row-space-top-2.row-space-4.patterns-list-category-wrapper
-  - @categories.each_with_index do |category, i|
-    .pattern-list-category-container[class="#{i > 0 ? "row-space-top-4" : ""}"]
-      .pattern-list-category-name
-        = link_to patterns_path(anchor: "category-#{i}"), class: "h4 strong p-x-5 m-t-0 bottom-bordered thick pattern-list-category-name"
-          |#{category.category_id}. #{category.short_name}
-      .col-12.pattern-list-category-description.row-space-top-2[category_id="#{category.category_id}"]
-        p #{category.description}
-      .text-center.row-space-top-2.show--sp
-        = link_to "#", class: "pattern-list-category-description-open js-pattern-list-category-description-open", category_id: "#{category.category_id}"
-          |カテゴリ概要を読む
+- if @type == "category"
+  .page-container.row-space-top-2.row-space-4.patterns-list-category-wrapper
+    - @categories.each_with_index do |category, i|
+      .pattern-list-category-container[class="#{i > 0 ? "row-space-top-4" : ""}"]
+        .pattern-list-category-name
+          = link_to patterns_path(anchor: "category-#{category.category_id}"), class: "h4 strong p-x-5 m-t-0 bottom-bordered thick pattern-list-category-name"
+            |#{category.name}
+        .col-12.pattern-list-category-description.row-space-top-2[category_id="#{category.category_id}"]
+          p #{category.description.html_safe}
+        .text-center.row-space-top-2.show--sp
+          = link_to "#", class: "pattern-list-category-description-open js-pattern-list-category-description-open", category_id: "#{category.category_id}"
+            |カテゴリ概要を読む
 
-.page-container.row-space-top-2.row-space-4.patterns-list-wrapper.hide
-  - @categories.each_with_index do |category, i|
-    .patterns-list.p-y-15[class="#{i > 0 ? "row-space-top-4" : ""}"]
-      = link_to patterns_path(anchor: "category-#{i}")
-        h4.p-x-5.m-t-0
-          span.bottom-bordered.thick
-            |#{category.category_id}. #{category.short_name}
-      .flex-container.flex-a-start.flex-wrap
-        - patterns = category.patterns.order(id: "asc")
-        - patterns.each do |pattern|
-          div[class="#{pattern.unit_no == 0 ? "col-12 row-space-top-1" : "col-4 col-md-6"}"]
-            = link_to pattern, class: "p underline"
-              |#{pattern.pattern_id}. #{pattern.pattern_name}
+- if @type == "patterns"
+  .page-container.no-padding-sp.row-space-top-2.row-space-4.patterns-list-wrapper
+    - @categories.each_with_index do |category, i|
+      .patterns-list.p-y-10.p-x-10[class="#{i > 0 ? "row-space-top-4" : ""}"]
+        = link_to patterns_path(anchor: "category-#{i}")
+          h4.p-x-5.m-t-0
+            span.bottom-bordered.thick
+              |#{category.name}
+        .flex-container.flex-a-start.flex-wrap
+          - patterns = category.patterns.order(id: "asc")
+          - patterns.each do |pattern|
+            div[class="#{pattern.unit_no == 0 ? "col-12 row-space-top-1" : "col-4 col-md-6"}"]
+              = link_to pattern, class: "p underline"
+                |#{pattern.pattern_id}. #{pattern.pattern_name}

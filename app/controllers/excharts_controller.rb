@@ -12,13 +12,14 @@ class ExchartsController < ApplicationController
   def show
     @exchart = Exchart.find(params[:id])
     gon.data = @exchart.data
-    @patterns = Pattern.all.order(:pattern_index)
+    @patterns = Pattern.where.not(unit_no: 0).order(:pattern_index)
     gon.patterns = @patterns
     
     base_pattern_index = []
-    @patterns.length.times do |index|
-      base_pattern_index.push(index.to_s)
+    @patterns.each do |pattern|
+      base_pattern_index.push(pattern.pattern_index.to_s)
     end
+    
     primary_pattern_index = JSON.parse(gon.data).select{|key,value| value > 0 }.keys()
     secondary_pattern_index = base_pattern_index - primary_pattern_index
     @primary_patterns = @patterns.where(pattern_index: primary_pattern_index)
@@ -58,12 +59,12 @@ class ExchartsController < ApplicationController
   
   def new
     @exchart = Exchart.new
-    @patterns = Pattern.all
+    @patterns = Pattern.where.not(unit_no: 0).order(:pattern_index)
   end
   
   def create
     @exchart = Exchart.new(exchart_params)
-    patterns_no = Pattern.all.length
+    patterns_no = Pattern.where.not(unit_no: 0).length
     if exchart_params[:data1] != "" && JSON.parse(exchart_params[:data]).length == patterns_no
       if @exchart.save
         redirect_to @exchart
@@ -113,8 +114,8 @@ class ExchartsController < ApplicationController
       new_pattern_index = JSON.parse(data2).select{|key,value| value > 0 }.keys()
       all_pattern_index = prev_pattern_index + new_pattern_index
       new_pattern_index = all_pattern_index - prev_pattern_index
-      @primary_patterns = @patterns.where(pattern_index: new_pattern_index)
-      @secondary_patterns = @patterns.where(pattern_index: all_pattern_index)
+      @primary_patterns = @patterns.where(pattern_index: new_pattern_index).where.not(unit_no: 0)
+      @secondary_patterns = @patterns.where(pattern_index: all_pattern_index).where.not(unit_no: 0)
     end
   end
   

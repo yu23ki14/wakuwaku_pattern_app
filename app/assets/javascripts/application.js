@@ -16,6 +16,7 @@
 //lib
 //= require lib/chart
 //= require lib/modaal
+//= require lib/lazyload
 
 //modules
 //= require common
