@@ -74,7 +74,7 @@ end
 
 group :production do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'unicorn', '~> 5.5'
+  gem 'unicorn', '~> 5.4.1'
   
 end
 
