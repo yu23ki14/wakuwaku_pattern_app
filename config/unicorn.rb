@@ -1,4 +1,4 @@
-APP_PATH = "/home/manabu/patternapp"
+APP_PATH = ENV['APP_PATH']
 
 worker_processes 3
 working_directory APP_PATH
