@@ -57,7 +57,7 @@ gem 'dotenv-rails', '2.5.0'
 gem 'whenever', '0.10.0'
 
 #use activeadmin as admin panel
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', '~> 1.4.3'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
