@@ -31,7 +31,7 @@ gem 'devise', '4.5.0'
 gem 'by_star', :git => "git://github.com/radar/by_star"
 
 #use gon as sender of valiables
-gem 'gon', '6.2.1'
+gem 'gon', '6.4.0'
 
 #use seed-fu as db seed
 gem 'seed-fu', '2.3.9'
